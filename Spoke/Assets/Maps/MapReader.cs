@@ -4,14 +4,16 @@ using UnityEngine;
 using System.IO;
 public class MapReader : MonoBehaviour {
     // Use this for initialization
-    public string filepath;
+	public TextAsset textFile;
 
     int channels;
     float bpm;
     float offset;
     float approachrate;
     List<byte> notes = new List<byte>();
-    string notedata;
+	List<byte> notes2 = new List<byte>();
+	string notedata = "";
+	string notedata2 = "";
 
     public AudioSource musicPlayer;
     public PlayerInput player;
@@ -25,7 +27,7 @@ public class MapReader : MonoBehaviour {
     {
         //start the music!
         musicPlayer.Play();
-        string text = File.ReadAllText(filepath);
+		string text = textFile.text;
 
         char[] separators = { '=', ';' };
         string[] strValues = text.Split(separators);
@@ -48,11 +50,18 @@ public class MapReader : MonoBehaviour {
                 case "approach":
                     approachrate = float.Parse(strValues[i + 1]);
                     break;
-                case "notes":
+                case "notes1":
                     notedata = strValues[i + 1];
-                    notedata = notedata.Replace(" ", string.Empty);
+				notedata = notedata.Replace(" ", string.Empty);
+				notedata = notedata.Replace("\n", string.Empty);
                     Debug.Log(notedata);
-                    break;
+				break;
+				case "notes2":
+				notedata2 = strValues[i + 1];
+				notedata2 = notedata2.Replace(" ", string.Empty);
+				notedata2 = notedata2.Replace("\n", string.Empty);
+				Debug.Log(notedata2);
+				break;
                 default:
                     break;
             }
@@ -60,6 +69,7 @@ public class MapReader : MonoBehaviour {
         Debug.Log("Channels: " + channels);
         Debug.Log("BPM: " + bpm);
         Debug.Log("Approach: " + approachrate);
+		//eight time
         secondsPerSixteenth = 30.0f / bpm;
         
 
@@ -68,6 +78,13 @@ public class MapReader : MonoBehaviour {
             byte t = (byte)(x - '0');
             notes.Add(t);
         }
+
+		foreach (char x in notedata2)
+		{
+			byte t = (byte)(x - '0');
+			notes2.Add(t);
+		}
+
 
         Debug.Log("Note total: " + notes.Count);
 
@@ -79,25 +96,27 @@ public class MapReader : MonoBehaviour {
     bool audioToggle2 = false;
     float spawnTimer = 0.0f;
 
-    void Update () {
-        audiotimer = musicPlayer.time;
-        spawnTimer = audiotimer + MoveInward.timeToMove;
-        if (((audiotimer + (0.00001 * offset)) % (secondsPerSixteenth * 1.0f)) <= 0.1f)
+    void FixedUpdate () {
+		audiotimer = musicPlayer.time + (0.001f * offset);
+		spawnTimer = audiotimer - MoveInward.timeToMove;
+		//spawnTimer = audiotimer;
+
+        if (((audiotimer) % (secondsPerSixteenth * 4.0f)) <= 0.06f)
         {
 
             if (!audioToggle)
-            {
+			{
                 debugMetronome.Stop();
                 debugMetronome.Play();
-                Debug.Log(val++);
                 audioToggle = !audioToggle;
 
             }
         }
         else audioToggle = false;
+        
 
 
-        if (((spawnTimer + (0.00001 * offset)) % (secondsPerSixteenth * 1.0f)) <= 0.1f)
+        if (((spawnTimer) % (secondsPerSixteenth * 1.0f)) <= 0.06f)
         {
 
             if (!audioToggle2)
@@ -131,6 +150,8 @@ public class MapReader : MonoBehaviour {
             GameObject x = GameObject.Instantiate(targetObject, transform);
             x.transform.localPosition += rot * Vector3.right * 10.0f;
             x.transform.localRotation = rot;
+			x.GetComponent<MoveInward> ().channel = notes[currentIndex] - 1;
+			x.GetComponent<MoveInward> ().player = this.player;
             x.GetComponent<MoveInward>().targetPosition = player.gameObject.transform.position + (rot * Vector3.right * player.radius * 0.6f);
             ++currentIndex;
         }
