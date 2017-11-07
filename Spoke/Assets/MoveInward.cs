@@ -14,18 +14,20 @@ public class MoveInward : MonoBehaviour
 	public int channel;
 	private float speed;
 
+	private double startTime;
+
 	public PlayerInput player;
 	void Start ()
     {
+		startTime = AudioSettings.dspTime;
+
         origin = objToMove.transform.localPosition;
         Destroy(gameObject, timeToMove * 1.4f);
     }
 
     // Update is called once per frame
-    float timer = 0.0f;
 	void FixedUpdate () {
-        timer += Time.fixedDeltaTime;
-        float t = timer / timeToMove;
+		float t = (float)(AudioSettings.dspTime - startTime) / timeToMove;
         objToMove.transform.localPosition = origin + (t * (transform.InverseTransformPoint(targetPosition) - origin));
 
 		if (Input.GetKeyDown (player.ChannelsInput [channel]) && t > 0.85f) {
