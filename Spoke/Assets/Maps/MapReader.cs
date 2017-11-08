@@ -40,7 +40,6 @@ public class MapReader : MonoBehaviour {
 		//clear whitespace
 		text = text.Replace ("\n", "");
 		text = text.Replace (" ", "");
-
         char[] separators = { '=', ';' };
         string[] strValues = text.Split(separators);
 
@@ -77,12 +76,16 @@ public class MapReader : MonoBehaviour {
         Debug.Log("Channels: " + channels);
         Debug.Log("BPM: " + bpm);
         Debug.Log("Approach: " + approachrate);
+        MoveInward.timeToMove = approachrate * 0.2f;
 		//eight time
         secondsPerSixteenth = 30.0f / bpm;
 
 
 		Debug.Log("Note total: " + notes.notedata.Length);
 		Debug.Log("Note2 total: " + notes2.notedata.Length);
+
+        notes.currentIndex = (int)(MoveInward.timeToMove / secondsPerSixteenth);
+        notes2.currentIndex = (int)(MoveInward.timeToMove / secondsPerSixteenth);
 
 
     }
@@ -94,8 +97,8 @@ public class MapReader : MonoBehaviour {
 
     void FixedUpdate () {
 		audiotimer = musicPlayer.time + (0.001f * offset);
-		spawnTimer = audiotimer - MoveInward.timeToMove;
-		//spawnTimer = audiotimer;
+		//spawnTimer = audiotimer - MoveInward.timeToMove;
+		spawnTimer = audiotimer;
 
         if (((audiotimer) % (secondsPerSixteenth * 4.0f)) <= 0.06f)
         {
@@ -128,10 +131,13 @@ public class MapReader : MonoBehaviour {
     
 	void SpawnMarker(NoteList notesi)
     {
-        if (musicPlayer.time <= 0.01f) notesi.currentIndex = 0;
 
 		if (notesi.currentIndex >= notesi.notedata.Length) return;
-
+        if(notesi.currentIndex < 0)
+        {
+            ++notesi.currentIndex;
+            return;
+        }
 		int currentnote = notesi.notedata [notesi.currentIndex] - '0';
 
 		if (currentnote == 0 || currentnote > player.ChannelsInput.Length)

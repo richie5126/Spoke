@@ -8,7 +8,8 @@ public class MoveInward : MonoBehaviour
     Vector3 origin;
     public Vector3 targetPosition;
 
-    public static float timeToMove = 1.3f;
+    public static float timeToMove = 2.0f;
+    public static Color PrimaryColor = Color.white;
     public GameObject objToMove;
     // Use this for initialization
 	public int channel;
@@ -21,6 +22,7 @@ public class MoveInward : MonoBehaviour
     {
 		startTime = AudioSettings.dspTime;
 
+        objToMove.GetComponent<SpriteRenderer>().material.SetColor("_Color", PrimaryColor);
         origin = objToMove.transform.localPosition;
         Destroy(gameObject, timeToMove * 1.4f);
     }

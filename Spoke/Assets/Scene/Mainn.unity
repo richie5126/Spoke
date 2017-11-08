@@ -367,10 +367,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChannelsInput: 64000000770000006100000078000000
   hitsounds:
-  - {fileID: 8300000, guid: 0ef99ef0007f89642b3d8b78eacd3b92, type: 3}
-  - {fileID: 8300000, guid: 0ef99ef0007f89642b3d8b78eacd3b92, type: 3}
-  - {fileID: 8300000, guid: 0ef99ef0007f89642b3d8b78eacd3b92, type: 3}
-  - {fileID: 8300000, guid: 0ef99ef0007f89642b3d8b78eacd3b92, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   radiusMarker: {fileID: 277133127}
   radiusWidthMarker: {fileID: 1465215849}
   hitsounder: {fileID: 581059161}
@@ -506,7 +506,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2049647358
+  randomSeed: 866529613
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3782,7 +3782,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4123,7 +4123,7 @@ MonoBehaviour:
   _sunFlaresHaloAmplitude: 15.1415
   _sunFlaresHaloIntensity: 0.01
   _sunFlaresRotationDeadZone: 0
-  isDirty: 1
+  isDirty: 0
   bMat: {fileID: 0}
 --- !u!1 &1157071760
 GameObject:
@@ -4613,6 +4613,7 @@ GameObject:
   - component: {fileID: 1873660974}
   - component: {fileID: 1873660973}
   - component: {fileID: 1873660972}
+  - component: {fileID: 1873660976}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -4686,6 +4687,17 @@ Transform:
   m_Father: {fileID: 141930692}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1873660976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1873660971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858e145cb11e3024e95792332da52c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2087553427
 GameObject:
   m_ObjectHideFlags: 0
