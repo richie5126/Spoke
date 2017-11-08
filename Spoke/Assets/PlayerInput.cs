@@ -7,8 +7,10 @@ public class PlayerInput : MonoBehaviour {
 
     // Use this for initialization
     public KeyCode[] ChannelsInput;
+	public AudioClip[] hitsounds;
     public Transform radiusMarker;
     public Transform radiusWidthMarker;
+	public AudioSource hitsounder;
 
     public GameObject effectToSpawn;
 
@@ -42,6 +44,12 @@ public class PlayerInput : MonoBehaviour {
                 GameObject x = GameObject.Instantiate(effectToSpawn, transform);
                 x.transform.localPosition += rot * Vector3.right * radius;
                 x.transform.localRotation = rot;
+
+				if (i < hitsounds.Length && hitsounder != null) {
+					hitsounder.Stop ();
+					hitsounder.clip = hitsounds [i];
+					hitsounder.Play ();
+				}
 
             }
         }

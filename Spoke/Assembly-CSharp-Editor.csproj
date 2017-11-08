@@ -70,6 +70,7 @@
      <None Include="Assets\Beautify\Resources\Shaders\BeautifySF.cginc" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifyMobile.cginc" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifyAdvancedParams.cginc" />
+     <None Include="Assets\Shaders\Gridbox.shader" />
      <None Include="Assets\Beautify\Resources\Shaders\Beautify.shader" />
      <None Include="Assets\Beautify\Resources\Shaders\Beautify.cginc" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifyBasic.cginc" />

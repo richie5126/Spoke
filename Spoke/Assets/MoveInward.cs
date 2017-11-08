@@ -14,7 +14,7 @@ public class MoveInward : MonoBehaviour
 	public int channel;
 	private float speed;
 
-	private double startTime;
+	public double startTime;
 
 	public PlayerInput player;
 	void Start ()

@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+
+public class NoteList
+{
+	public string notedata = "";
+	public int currentIndex = 0;
+	public NoteList ()
+	{
+	}
+}
 public class MapReader : MonoBehaviour {
     // Use this for initialization
 	public TextAsset textFile;
@@ -10,10 +19,7 @@ public class MapReader : MonoBehaviour {
     float bpm;
     float offset;
     float approachrate;
-    List<byte> notes = new List<byte>();
-	List<byte> notes2 = new List<byte>();
-	string notedata = "";
-	string notedata2 = "";
+	NoteList notes, notes2;
 
     public AudioSource musicPlayer;
     public PlayerInput player;
@@ -25,9 +31,15 @@ public class MapReader : MonoBehaviour {
     float audiotimer = 0.0f;
     void Start()
     {
+		notes = new NoteList();
+		notes2 = new NoteList ();
         //start the music!
         musicPlayer.Play();
 		string text = textFile.text;
+
+		//clear whitespace
+		text = text.Replace ("\n", "");
+		text = text.Replace (" ", "");
 
         char[] separators = { '=', ';' };
         string[] strValues = text.Split(separators);
@@ -51,16 +63,12 @@ public class MapReader : MonoBehaviour {
                     approachrate = float.Parse(strValues[i + 1]);
                     break;
                 case "notes1":
-                    notedata = strValues[i + 1];
-				notedata = notedata.Replace(" ", string.Empty);
-				notedata = notedata.Replace("\n", string.Empty);
-                    Debug.Log(notedata);
+                    notes.notedata = strValues[i + 1];
+                    Debug.Log(notes.notedata);
 				break;
 				case "notes2":
-				notedata2 = strValues[i + 1];
-				notedata2 = notedata2.Replace(" ", string.Empty);
-				notedata2 = notedata2.Replace("\n", string.Empty);
-				Debug.Log(notedata2);
+				notes2.notedata = strValues[i + 1];
+				Debug.Log(notes2.notedata);
 				break;
                 default:
                     break;
@@ -71,22 +79,10 @@ public class MapReader : MonoBehaviour {
         Debug.Log("Approach: " + approachrate);
 		//eight time
         secondsPerSixteenth = 30.0f / bpm;
-        
-
-        foreach (char x in notedata)
-        {
-            byte t = (byte)(x - '0');
-            notes.Add(t);
-        }
-
-		foreach (char x in notedata2)
-		{
-			byte t = (byte)(x - '0');
-			notes2.Add(t);
-		}
 
 
-        Debug.Log("Note total: " + notes.Count);
+		Debug.Log("Note total: " + notes.notedata.Length);
+		Debug.Log("Note2 total: " + notes2.notedata.Length);
 
 
     }
@@ -121,7 +117,8 @@ public class MapReader : MonoBehaviour {
 
             if (!audioToggle2)
             {
-                SpawnMarker();
+				SpawnMarker (notes);
+				SpawnMarker (notes2);
                 audioToggle2 = !audioToggle2;
 
             }
@@ -129,31 +126,33 @@ public class MapReader : MonoBehaviour {
         else audioToggle2 = false;
     }
     
-    int currentIndex = 0;
-    void SpawnMarker()
+	void SpawnMarker(NoteList notesi)
     {
-        if (musicPlayer.time <= 0.01f) currentIndex = 0;
+        if (musicPlayer.time <= 0.01f) notesi.currentIndex = 0;
 
-        if (currentIndex >= notes.Count) return;
+		if (notesi.currentIndex >= notesi.notedata.Length) return;
 
-        if (notes[currentIndex] == 0 || notes[currentIndex] > player.ChannelsInput.Length)
+		int currentnote = notesi.notedata [notesi.currentIndex] - '0';
+
+		if (currentnote == 0 || currentnote > player.ChannelsInput.Length)
         {
-            ++currentIndex;
+			++notesi.currentIndex;
             return;
         }
 
         else
         {
-            float rotationAngle = ((notes[currentIndex]-1) / (float)(player.ChannelsInput.Length)) * 360.0f;
+            float rotationAngle = ((currentnote-1) / (float)(player.ChannelsInput.Length)) * 360.0f;
             Quaternion rot = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
 
             GameObject x = GameObject.Instantiate(targetObject, transform);
             x.transform.localPosition += rot * Vector3.right * 10.0f;
             x.transform.localRotation = rot;
-			x.GetComponent<MoveInward> ().channel = notes[currentIndex] - 1;
+			x.GetComponent<MoveInward> ().channel = currentnote - 1;
+			x.GetComponent<MoveInward> ().startTime = spawnTimer;
 			x.GetComponent<MoveInward> ().player = this.player;
             x.GetComponent<MoveInward>().targetPosition = player.gameObject.transform.position + (rot * Vector3.right * player.radius * 0.6f);
-            ++currentIndex;
+			++notesi.currentIndex;
         }
 
 
