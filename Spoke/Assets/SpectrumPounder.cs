@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpectrumFlicker : MonoBehaviour {
+public class SpectrumPounder : MonoBehaviour {
 
     // Use this for initialization
 
     private Renderer plane;
-    private Color originalColor;
+	private Vector3 originalScale;
 	public float intensity = 2.0f;
 	void Start () {
         plane = GetComponent<Renderer>();
-        if (plane != null)
-            originalColor = plane.material.color;
+		if (plane != null)
+			originalScale = plane.transform.localScale;
 	}
 
     // Update is called once per frame
     float[] spectrum = new float[256];
     void Update () {
 
-        AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
-        plane.material.SetColor("_Color", originalColor + (Color.white * (spectrum[1] * intensity)));
+		AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
+		transform.localScale = originalScale + Vector3.one * (spectrum[3] * 0.1f);
     }
 }

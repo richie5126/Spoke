@@ -109,6 +109,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPosition: {x: 0, y: 0, z: 0}
   objToMove: {fileID: 1845487198321452}
+  channel: 0
+  scoreManager: {fileID: 0}
+  startTime: 0
+  musicPlayer: {fileID: 0}
+  player: {fileID: 0}
 --- !u!212 &212286563615754270
 SpriteRenderer:
   m_ObjectHideFlags: 1

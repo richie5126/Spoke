@@ -11,9 +11,12 @@ public class NoteList
 	{
 	}
 }
+
 public class MapReader : MonoBehaviour {
     // Use this for initialization
+
 	public TextAsset textFile;
+	public static Color CorePrimaryColor = Color.blue;
 
     int channels;
     float bpm;
@@ -29,8 +32,24 @@ public class MapReader : MonoBehaviour {
 
     float secondsPerSixteenth = 0.0f;
     float audiotimer = 0.0f;
-    void Start()
+
+	Renderer[] primaryRenderers;
+    void Awake()
     {
+
+		primaryRenderers = FindObjectsOfType<Renderer> ();
+		Debug.Log (primaryRenderers.Length);
+		foreach (Renderer r in primaryRenderers)
+			r.material.SetColor ("_Color", CorePrimaryColor);
+		primaryRenderers = FindObjectsOfType<SpriteRenderer> ();
+		Debug.Log (primaryRenderers.Length);
+		foreach (Renderer r in primaryRenderers)
+			r.material.SetColor ("_Color", CorePrimaryColor);
+		primaryRenderers = FindObjectsOfType<LineRenderer> ();
+		Debug.Log (primaryRenderers.Length);
+		foreach (Renderer r in primaryRenderers)
+			r.material.SetColor ("_Color", CorePrimaryColor);
+		
 		notes = new NoteList();
 		notes2 = new NoteList ();
         //start the music!
@@ -84,8 +103,8 @@ public class MapReader : MonoBehaviour {
 		Debug.Log("Note total: " + notes.notedata.Length);
 		Debug.Log("Note2 total: " + notes2.notedata.Length);
 
-        notes.currentIndex = (int)(MoveInward.timeToMove / secondsPerSixteenth);
-        notes2.currentIndex = (int)(MoveInward.timeToMove / secondsPerSixteenth);
+		notes.currentIndex = (int)((MoveInward.timeToMove - 0.001f * offset) / secondsPerSixteenth);
+		notes2.currentIndex = (int)((MoveInward.timeToMove - 0.001f * offset) / secondsPerSixteenth);
 
 
     }
@@ -93,7 +112,7 @@ public class MapReader : MonoBehaviour {
 
     bool audioToggle = false;
     bool audioToggle2 = false;
-    float spawnTimer = 0.0f;
+    public static float spawnTimer = 0.0f;
 
     void FixedUpdate () {
 		audiotimer = musicPlayer.time + (0.001f * offset);
@@ -155,6 +174,7 @@ public class MapReader : MonoBehaviour {
             x.transform.localPosition += rot * Vector3.right * 10.0f;
             x.transform.localRotation = rot;
 			x.GetComponent<MoveInward> ().channel = currentnote - 1;
+			x.GetComponent<MoveInward> ().musicPlayer = this.musicPlayer;
 			x.GetComponent<MoveInward> ().startTime = spawnTimer;
 			x.GetComponent<MoveInward> ().player = this.player;
             x.GetComponent<MoveInward>().targetPosition = player.gameObject.transform.position + (rot * Vector3.right * player.radius * 0.6f);
