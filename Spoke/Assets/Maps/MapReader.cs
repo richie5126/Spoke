@@ -35,18 +35,26 @@ public class MapReader : MonoBehaviour {
     float audiotimer = 0.0f;
 
 	Renderer[] primaryRenderers;
+	IEnumerator StartAudio()
+	{
+
+		//start the music!
+		musicPlayer.PlayScheduled(AudioSettings.dspTime + 7.0);
+
+
+		title.CrossFadeAlpha (1.0f, 1.0f, false);
+		yield return new WaitForSeconds (1.0f);
+		yield return new WaitForSeconds (5.0f);
+		title.CrossFadeAlpha (0.0f, 1.0f, false);
+		yield return new WaitForSeconds (1.0f);
+	}
+	public static void Flicker()
+	{
+	}
     void Awake()
     {
 
 		primaryRenderers = FindObjectsOfType<Renderer> ();
-		Debug.Log (primaryRenderers.Length);
-		foreach (Renderer r in primaryRenderers)
-			r.material.SetColor ("_Color", CorePrimaryColor);
-		primaryRenderers = FindObjectsOfType<SpriteRenderer> ();
-		Debug.Log (primaryRenderers.Length);
-		foreach (Renderer r in primaryRenderers)
-			r.material.SetColor ("_Color", CorePrimaryColor);
-		primaryRenderers = FindObjectsOfType<LineRenderer> ();
 		Debug.Log (primaryRenderers.Length);
 		foreach (Renderer r in primaryRenderers)
 			r.material.SetColor ("_Color", CorePrimaryColor);
@@ -74,8 +82,6 @@ public class MapReader : MonoBehaviour {
                     {
                         Debug.Log("Found the file!");
                         musicPlayer.clip = songData;
-                        //start the music!
-                        musicPlayer.PlayScheduled(AudioSettings.dspTime + 5.0);
                     }
                     else Debug.Log("Error: Could not find file requested!");
 
@@ -122,8 +128,10 @@ public class MapReader : MonoBehaviour {
 
 		notes.currentIndex = (int)((MoveInward.timeToMove - 0.001f * offset) / secondsPerSixteenth);
 		notes2.currentIndex = (int)((MoveInward.timeToMove - 0.001f * offset) / secondsPerSixteenth);
-
-
+		/*
+		StartCoroutine (StartAudio ());
+		*/
+		musicPlayer.PlayScheduled (AudioSettings.dspTime + 5.0f);
     }
     int val = 0;
 

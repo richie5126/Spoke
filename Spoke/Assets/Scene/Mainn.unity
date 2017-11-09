@@ -435,7 +435,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1877517863
+  randomSeed: -1637290232
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3953,7 +3953,7 @@ MonoBehaviour:
   _bloom: 1
   _bloomCullingMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   _bloomLayerMaskDownsampling: 1.82
   _bloomIntensity: 1.1
   _bloomMaxBrightness: 1000
@@ -4782,6 +4782,7 @@ MonoBehaviour:
   notesPlayed: 0
   noteAccuracy: 0
   accuracy: 0
+  displayedAccuracy: 0
   scoreDisplay: {fileID: 1558841020}
   accuracyDisplay: {fileID: 1462352873}
   comboDisplay: {fileID: 1340872946}
@@ -4831,7 +4832,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 844375491}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4840,7 +4841,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -100
   m_TargetDisplay: 0
 --- !u!224 &1569787500
 RectTransform:

@@ -15,6 +15,7 @@ public class ScoreManager : MonoBehaviour {
 	public float noteAccuracy;
 
 	public float accuracy = 0.0f;
+	public float displayedAccuracy = 0.0f;
 	public Text scoreDisplay;
 	public Text accuracyDisplay;
 	public Text comboDisplay;
@@ -30,7 +31,6 @@ public class ScoreManager : MonoBehaviour {
 	{
 		combo = 1;
 	}
-	
 	// Update is called once per frame
 	float timer = 0.0f;
 	void FixedUpdate () {
@@ -39,6 +39,7 @@ public class ScoreManager : MonoBehaviour {
 		else accuracy = noteAccuracy / notesPlayed;
 
 		scoredisplayed = Mathf.Lerp (scoredisplayed, (float)(score), 5.0f * Time.deltaTime); 
+		displayedAccuracy = Mathf.Lerp (displayedAccuracy, accuracy, 10.0f * Time.deltaTime);
 		scoretracker = Mathf.CeilToInt(scoredisplayed);
 		if (scoreDisplay != null) {
 			int numOccupiedZeroes = scoretracker.ToString().Length;
@@ -48,7 +49,7 @@ public class ScoreManager : MonoBehaviour {
 			scoreDisplay.text += "" + scoretracker;
 		}
 		if (accuracyDisplay != null) {
-			accuracyDisplay.text = "" + (accuracy * 100.0f).ToString ("n2") + "%";
+			accuracyDisplay.text = "" + (displayedAccuracy * 100.0f).ToString ("n2") + "%";
 		}
 		if (comboDisplay != null) {
 			comboDisplay.text = "x" + combo;
