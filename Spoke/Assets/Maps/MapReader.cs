@@ -53,7 +53,7 @@ public class MapReader : MonoBehaviour {
 		notes = new NoteList();
 		notes2 = new NoteList ();
         //start the music!
-        musicPlayer.Play();
+		musicPlayer.PlayScheduled(AudioSettings.dspTime);
 		string text = textFile.text;
 
 		//clear whitespace
