@@ -6,7 +6,7 @@ public class ScoreManager : MonoBehaviour {
 
 	// Use this for initialization
 	public int score = 0;
-	float scoredisplayed = 0;
+	public float scoredisplayed = 0;
 	public int scoretracker = 0;
 	public int combo = 1;
 	int totalZeroes = 10;

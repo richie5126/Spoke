@@ -1,0 +1,1 @@
+songfile=Daft Punk - Derezzed;title=Daft Punk - Derezzed;bpm=120.00;startoffset=100.000;channels=4;approach=6;notes1=0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 1020 3040 1020 3040 1020 3040 1020 3040

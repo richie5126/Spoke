@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 
 public class NoteList
@@ -29,7 +30,7 @@ public class MapReader : MonoBehaviour {
     public GameObject targetObject;
 
     public AudioSource debugMetronome;
-
+    public Text title;
     float secondsPerSixteenth = 0.0f;
     float audiotimer = 0.0f;
 
@@ -52,13 +53,10 @@ public class MapReader : MonoBehaviour {
 		
 		notes = new NoteList();
 		notes2 = new NoteList ();
-        //start the music!
-		musicPlayer.PlayScheduled(AudioSettings.dspTime);
 		string text = textFile.text;
 
 		//clear whitespace
 		text = text.Replace ("\n", "");
-		text = text.Replace (" ", "");
         char[] separators = { '=', ';' };
         string[] strValues = text.Split(separators);
 
@@ -68,8 +66,26 @@ public class MapReader : MonoBehaviour {
 
             switch (strValues[i])
             {
+                case "songfile":
+                    Debug.Log(strValues[i + 1]);
+                    AudioClip songData = (AudioClip) Resources.Load(strValues[i + 1]);
+                    Debug.Log(songData);
+                    if (songData != null)
+                    {
+                        Debug.Log("Found the file!");
+                        musicPlayer.clip = songData;
+                        //start the music!
+                        musicPlayer.PlayScheduled(AudioSettings.dspTime);
+                    }
+                    else Debug.Log("Error: Could not find file requested!");
+
+                    break;
                 case "channels":
                     channels = int.Parse(strValues[i + 1]);
+                    break;
+                case "title":
+                    title.text = strValues[i + 1];
+                    title.CrossFadeAlpha(0.0f, 5.0f, false);
                     break;
                 case "bpm":
                     bpm = float.Parse(strValues[i + 1]);
@@ -81,6 +97,7 @@ public class MapReader : MonoBehaviour {
                     approachrate = float.Parse(strValues[i + 1]);
                     break;
                 case "notes1":
+                    strValues[i+1] = strValues[i+1].Replace(" ", "");
                     notes.notedata = strValues[i + 1];
                     Debug.Log(notes.notedata);
 				break;

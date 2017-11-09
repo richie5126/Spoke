@@ -435,7 +435,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1731986907
+  randomSeed: 1276715856
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4081,10 +4081,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xMaxDegree: 10
   yMaxDegree: 30
-  zMaxDegree: 5
+  zMaxDegree: 2
   xRate: 0.5
   yRate: 0.3
-  zRate: 0.2
+  zRate: 0.1
 --- !u!1 &1157071760
 GameObject:
   m_ObjectHideFlags: 0
@@ -4119,6 +4119,7 @@ MonoBehaviour:
   targetObject: {fileID: 1146431111806686, guid: 44bd6f02a03480743bcf8ee49c871331,
     type: 2}
   debugMetronome: {fileID: 1157071763}
+  title: {fileID: 1509015805}
 --- !u!4 &1157071762
 Transform:
   m_ObjectHideFlags: 0
@@ -4352,7 +4353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.7551307}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 395.30008, y: 18.600037}
+  m_AnchoredPosition: {x: 227, y: -16}
   m_SizeDelta: {x: -368.70007, y: 63.19998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1340872946
@@ -4375,7 +4376,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 8f1a12e9a1a611f47a3f0067e0cfe858, type: 3}
     m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
@@ -4459,7 +4460,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 8f1a12e9a1a611f47a3f0067e0cfe858, type: 3}
     m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
@@ -4493,7 +4494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.7551307}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 333.3, y: -16.900024}
+  m_AnchoredPosition: {x: 329, y: -16.900024}
   m_SizeDelta: {x: -368.70007, y: 63.19998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1465215848
@@ -4556,7 +4557,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.7551307}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -314, y: 16.900024}
+  m_AnchoredPosition: {x: -314, y: 9}
   m_SizeDelta: {x: -368.70007, y: 63.19998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1509015805
@@ -4579,7 +4580,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 96a75132a57194c1c86b1df74d33bf1b, type: 3}
+    m_Font: {fileID: 12800000, guid: 8f1a12e9a1a611f47a3f0067e0cfe858, type: 3}
     m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
@@ -4630,7 +4631,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.7551307}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 284, y: 16.899994}
+  m_AnchoredPosition: {x: 307, y: 10}
   m_SizeDelta: {x: -368.7, y: 63.199997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1558841020
@@ -4653,7 +4654,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 8f1a12e9a1a611f47a3f0067e0cfe858, type: 3}
     m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
@@ -4661,10 +4662,10 @@ MonoBehaviour:
     m_MaxSize: 120
     m_Alignment: 2
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 3
   m_Text: 00000000
 --- !u!222 &1558841021
 CanvasRenderer:
@@ -4775,7 +4776,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  scoretracker: 0
+  scoredisplayed: 10000000
+  scoretracker: 1000000
   combo: 1
   notesPlayed: 0
   noteAccuracy: 0
@@ -5273,7 +5275,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6364555a0b4f21946966289d16f9ea84, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
