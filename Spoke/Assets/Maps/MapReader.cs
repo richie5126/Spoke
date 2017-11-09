@@ -75,7 +75,7 @@ public class MapReader : MonoBehaviour {
                         Debug.Log("Found the file!");
                         musicPlayer.clip = songData;
                         //start the music!
-                        musicPlayer.PlayScheduled(AudioSettings.dspTime);
+                        musicPlayer.PlayScheduled(AudioSettings.dspTime + 5.0);
                     }
                     else Debug.Log("Error: Could not find file requested!");
 

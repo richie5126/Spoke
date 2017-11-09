@@ -37,7 +37,7 @@ public class MoveInward : MonoBehaviour
     }
 
     // Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		if (scoreManager == null)
 			scoreManager = FindObjectOfType<ScoreManager> ();
 		
@@ -76,7 +76,7 @@ public class MoveInward : MonoBehaviour
 			
 			Destroy (gameObject);
 		}
-		if (t > 1.2f) {
+		if (t > 1.3f) {
 			Debug.Log ("Miss...");
 			++scoreManager.notesPlayed;
 			scoreManager.BreakCombo ();
