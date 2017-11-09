@@ -17,7 +17,7 @@ public class MapReader : MonoBehaviour {
     // Use this for initialization
 
 	public TextAsset textFile;
-	public static Color CorePrimaryColor = Color.blue;
+	public static Color CorePrimaryColor = Color.cyan;
 
     int channels;
     float bpm;
@@ -126,8 +126,8 @@ public class MapReader : MonoBehaviour {
 		Debug.Log("Note total: " + notes.notedata.Length);
 		Debug.Log("Note2 total: " + notes2.notedata.Length);
 
-		notes.currentIndex = (int)((MoveInward.timeToMove - 0.001f * offset) / secondsPerSixteenth);
-		notes2.currentIndex = (int)((MoveInward.timeToMove - 0.001f * offset) / secondsPerSixteenth);
+		notes.currentIndex = (int)((MoveInward.timeToMove - (0.001f * offset)) / secondsPerSixteenth);
+		notes2.currentIndex = (int)((MoveInward.timeToMove - (0.001f * offset)) / secondsPerSixteenth);
 		/*
 		StartCoroutine (StartAudio ());
 		*/
@@ -144,7 +144,7 @@ public class MapReader : MonoBehaviour {
 		//spawnTimer = audiotimer - MoveInward.timeToMove;
 		spawnTimer = audiotimer;
 
-        if (((audiotimer) % (secondsPerSixteenth * 4.0f)) <= 0.06f)
+        if (((audiotimer) % (secondsPerSixteenth * 4.0f)) <= 0.05f)
         {
 
             if (!audioToggle)
@@ -159,7 +159,7 @@ public class MapReader : MonoBehaviour {
         
 
 
-        if (((spawnTimer) % (secondsPerSixteenth * 1.0f)) <= 0.06f)
+        if (((spawnTimer) % (secondsPerSixteenth * 1.0f)) <= 0.05f)
         {
 
             if (!audioToggle2)
@@ -201,6 +201,7 @@ public class MapReader : MonoBehaviour {
 			x.GetComponent<MoveInward> ().channel = currentnote - 1;
 			x.GetComponent<MoveInward> ().musicPlayer = this.musicPlayer;
 			x.GetComponent<MoveInward> ().startTime = spawnTimer;
+			//x.GetComponent<MoveInward> ().primaryColor = CorePrimaryColor;
 			x.GetComponent<MoveInward> ().player = this.player;
             x.GetComponent<MoveInward>().targetPosition = player.gameObject.transform.position + (rot * Vector3.right * player.radius * 0.6f);
 			++notesi.currentIndex;
