@@ -74,9 +74,7 @@ public class MapReader : MonoBehaviour {
     {
         startingColor = CorePrimaryColor;
 		primaryRenderers = FindObjectsOfType<Renderer> ();
-		foreach (Renderer r in primaryRenderers)
-			r.material.SetColor ("_Color", CorePrimaryColor);
-        Debug.Log(primaryRenderers.Length);
+		ChangeColor (startingColor);
 		
 		notes = new NoteList();
 		notes2 = new NoteList ();

@@ -11,7 +11,7 @@ public class ButtonManager : MonoBehaviour {
     Vector3 originalPosition;
 	void Start () {
         originalPosition = transform.position;
-        SwapToMenuWithIndex(0);
+        //SwapToMenuWithIndex(0);
 	}
     public void SwapToMenuWithIndex(int value)
     {
@@ -24,7 +24,7 @@ public class ButtonManager : MonoBehaviour {
 
         //move this offscreen first.
         float movementspeed = speed;
-        while ((objectToMove.transform.position-end).magnitude > 0.1f)
+        while ((objectToMove.transform.position-end).magnitude > 0.01f)
         {
             objectToMove.transform.position = Vector3.Lerp(objectToMove.transform.position, end, speed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
