@@ -11,8 +11,6 @@ public class SpectrumFlicker : MonoBehaviour {
 	public float intensity = 2.0f;
 	void Start () {
         plane = GetComponent<Renderer>();
-        if (plane != null)
-            originalColor = plane.material.color;
 	}
 
     // Update is called once per frame

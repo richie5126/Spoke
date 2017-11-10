@@ -54,6 +54,7 @@
      <Compile Include="Assets\Beat.cs" />
      <Compile Include="Assets\Beautify\Scripts\Beautify.cs" />
      <Compile Include="Assets\Beautify\Scripts\BeautifyProfile.cs" />
+     <Compile Include="Assets\ButtonManager.cs" />
      <Compile Include="Assets\DestroySelf.cs" />
      <Compile Include="Assets\GoogleVR\Scripts\Audio\FmodGvrAudio.cs" />
      <Compile Include="Assets\GoogleVR\Scripts\Audio\FmodGvrAudioRoom.cs" />
