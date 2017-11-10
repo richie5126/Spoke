@@ -340,7 +340,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -437,7 +437,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -313095387
+  randomSeed: -765823446
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -485,7 +485,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 10
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -997,7 +997,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4138,6 +4138,7 @@ MonoBehaviour:
   player: {fileID: 581059157}
   targetObject: {fileID: 1146431111806686, guid: 44bd6f02a03480743bcf8ee49c871331,
     type: 2}
+  passiveParticles: {fileID: 581059160}
   debugMetronome: {fileID: 1157071763}
   title: {fileID: 1509015805}
 --- !u!4 &1157071762
@@ -4577,7 +4578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.7551307}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -82, y: -213}
+  m_AnchoredPosition: {x: 18, y: -213}
   m_SizeDelta: {x: -368.70007, y: 63.19998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1509015805
@@ -4606,13 +4607,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 120
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ARCIEN - Future Son
+  m_Text: Untitled - Nobody
 --- !u!222 &1509015806
 CanvasRenderer:
   m_ObjectHideFlags: 0

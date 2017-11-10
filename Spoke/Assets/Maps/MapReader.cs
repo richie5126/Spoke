@@ -35,6 +35,7 @@ public class MapReader : MonoBehaviour {
     public AudioSource musicPlayer;
     public PlayerInput player;
     public GameObject targetObject;
+    public ParticleSystem passiveParticles;
 
     public AudioSource debugMetronome;
     public Text title;
@@ -66,6 +67,7 @@ public class MapReader : MonoBehaviour {
             if (sr != null) sr.originalColor = CorePrimaryColor;
         }
         Debug.Log(primaryRenderers.Length);
+        if (passiveParticles != null) passiveParticles.Emit(25);
 
     }
     void Awake()
@@ -180,6 +182,8 @@ public class MapReader : MonoBehaviour {
         if (musicPlayer.pitch < 0.0f) valueToIncrement -= 1;
         else valueToIncrement += 1;
         */
+
+        if(musicPlayer.pitch > 0.0f)
         ++valueToIncrement;
     }
     void FixedUpdate () {
