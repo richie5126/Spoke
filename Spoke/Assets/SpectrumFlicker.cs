@@ -7,7 +7,7 @@ public class SpectrumFlicker : MonoBehaviour {
     // Use this for initialization
 
     private Renderer plane;
-    private Color originalColor;
+    public Color originalColor;
 	public float intensity = 2.0f;
 	void Start () {
         plane = GetComponent<Renderer>();

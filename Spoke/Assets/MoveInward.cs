@@ -32,7 +32,7 @@ public class MoveInward : MonoBehaviour
 			startTime = (double) musicPlayer.time;
 		transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_Color", primaryColor);
         origin = objToMove.transform.localPosition;
-        Destroy(gameObject, timeToMove * 1.4f);
+        //Destroy(gameObject, timeToMove * 1.4f);
     }
 
     // Update is called once per frame

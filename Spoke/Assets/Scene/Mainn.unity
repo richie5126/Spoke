@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858e145cb11e3024e95792332da52c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
   intensity: 1
 --- !u!1 &141930690
 GameObject:
@@ -276,6 +277,7 @@ GameObject:
   - component: {fileID: 581059160}
   - component: {fileID: 581059159}
   - component: {fileID: 581059161}
+  - component: {fileID: 581059162}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -435,7 +437,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1637290232
+  randomSeed: -313095387
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3724,6 +3726,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &581059162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 581059156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadEvent: 1
+  UnloadEvent: 0
+  Banks:
+  - MainTrack
+  CollisionTag: 
+  PreloadSamples: 0
 --- !u!1 &582360352
 GameObject:
   m_ObjectHideFlags: 0
@@ -4081,7 +4100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xMaxDegree: 10
   yMaxDegree: 30
-  zMaxDegree: 2
+  zMaxDegree: 45
   xRate: 0.5
   yRate: 0.3
   zRate: 0.1
@@ -4114,6 +4133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textFile: {fileID: 4900000, guid: 130e209a64438084c8ba2673829dd8e3, type: 3}
+  CorePrimaryColor: {r: 0.65517235, g: 0, b: 1, a: 1}
   musicPlayer: {fileID: 2087553430}
   player: {fileID: 581059157}
   targetObject: {fileID: 1146431111806686, guid: 44bd6f02a03480743bcf8ee49c871331,
@@ -5117,6 +5137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858e145cb11e3024e95792332da52c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
   intensity: 2
 --- !u!1 &1878514051
 GameObject:
@@ -5161,6 +5182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858e145cb11e3024e95792332da52c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
   intensity: 2
 --- !u!23 &1878514054
 MeshRenderer:
@@ -5280,11 +5302,11 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -5470,4 +5492,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858e145cb11e3024e95792332da52c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
   intensity: 2

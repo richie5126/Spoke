@@ -12,18 +12,25 @@ public class NoteList
 	{
 	}
 }
+public class EffectList : NoteList
+{
 
+    public EffectList()
+    {
+    }
+}
 public class MapReader : MonoBehaviour {
     // Use this for initialization
 
 	public TextAsset textFile;
-	public static Color CorePrimaryColor = Color.cyan;
+	public Color CorePrimaryColor = Color.cyan;
 
     int channels;
     float bpm;
     float offset;
     float approachrate;
 	NoteList notes, notes2;
+    EffectList effects;
 
     public AudioSource musicPlayer;
     public PlayerInput player;
@@ -34,6 +41,7 @@ public class MapReader : MonoBehaviour {
     float secondsPerSixteenth = 0.0f;
     float audiotimer = 0.0f;
 
+    Color startingColor;
 	Renderer[] primaryRenderers;
 	IEnumerator StartAudio()
 	{
@@ -48,71 +56,98 @@ public class MapReader : MonoBehaviour {
 		title.CrossFadeAlpha (0.0f, 1.0f, false);
 		yield return new WaitForSeconds (1.0f);
 	}
-	public static void Flicker()
+	public void ChangeColor(Color c)
 	{
-	}
+        CorePrimaryColor = c;
+        foreach (Renderer r in primaryRenderers)
+        {
+            r.material.SetColor("_Color", CorePrimaryColor);
+            var sr = r.gameObject.GetComponent<SpectrumFlicker>();
+            if (sr != null) sr.originalColor = CorePrimaryColor;
+        }
+        Debug.Log(primaryRenderers.Length);
+
+    }
     void Awake()
     {
-
+        startingColor = CorePrimaryColor;
 		primaryRenderers = FindObjectsOfType<Renderer> ();
-		Debug.Log (primaryRenderers.Length);
 		foreach (Renderer r in primaryRenderers)
 			r.material.SetColor ("_Color", CorePrimaryColor);
+        Debug.Log(primaryRenderers.Length);
 		
 		notes = new NoteList();
 		notes2 = new NoteList ();
-		string text = textFile.text;
+        effects = new EffectList();
+
+        byte[] bytedata = textFile.bytes;
+        string text = System.Text.ASCIIEncoding.ASCII.GetString(bytedata);
 
 		//clear whitespace
-		text = text.Replace ("\n", "");
+		text = text.Replace ("\n", string.Empty);
+        Debug.Log(text);
         char[] separators = { '=', ';' };
         string[] strValues = text.Split(separators);
-
         for (int i = 0; i < strValues.Length; i += 2)
         {
             if (i + 1 >= strValues.Length) break;
-
-            switch (strValues[i])
+            if (strValues[i].Equals("songfile"))
             {
-                case "songfile":
-                    Debug.Log(strValues[i + 1]);
-                    AudioClip songData = (AudioClip) Resources.Load(strValues[i + 1]);
-                    Debug.Log(songData);
-                    if (songData != null)
-                    {
-                        Debug.Log("Found the file!");
-                        musicPlayer.clip = songData;
-                    }
-                    else Debug.Log("Error: Could not find file requested!");
+                Debug.Log(strValues[i + 1]);
+                AudioClip songData = (AudioClip)Resources.Load(strValues[i + 1]);
+                Debug.Log(songData);
+                if (songData != null)
+                {
+                    Debug.Log("Found the file!");
+                    musicPlayer.clip = songData;
+                }
+                else Debug.Log("Error: Could not find file requested!");
 
-                    break;
-                case "channels":
-                    channels = int.Parse(strValues[i + 1]);
-                    break;
-                case "title":
-                    title.text = strValues[i + 1];
-                    title.CrossFadeAlpha(0.0f, 5.0f, false);
-                    break;
-                case "bpm":
-                    bpm = float.Parse(strValues[i + 1]);
-                    break;
-                case "startoffset":
-                    offset = float.Parse(strValues[i + 1]);
-                    break;
-                case "approach":
-                    approachrate = float.Parse(strValues[i + 1]);
-                    break;
-                case "notes1":
-                    strValues[i+1] = strValues[i+1].Replace(" ", "");
-                    notes.notedata = strValues[i + 1];
-                    Debug.Log(notes.notedata);
-				break;
-				case "notes2":
-				notes2.notedata = strValues[i + 1];
-				Debug.Log(notes2.notedata);
-				break;
-                default:
-                    break;
+            } else if (strValues[i].Equals("channels"))
+            {
+
+                channels = int.Parse(strValues[i + 1]);
+            }
+            else if (strValues[i].Equals("title"))
+            {
+
+                title.text = strValues[i + 1];
+                title.CrossFadeAlpha(0.0f, 5.0f, false);
+            }
+            else if (strValues[i].Equals("bpm"))
+            {
+
+                bpm = float.Parse(strValues[i + 1]);
+            }
+            else if (strValues[i].Equals("startoffset"))
+            {
+
+                offset = float.Parse(strValues[i + 1]);
+            }
+            else if (strValues[i].Equals("approach"))
+            {
+                approachrate = float.Parse(strValues[i + 1]);
+            }
+
+            else if (strValues[i].Equals("notes1"))
+            {
+
+                strValues[i + 1] = strValues[i + 1].Replace(" ", "");
+                notes.notedata = strValues[i + 1];
+                Debug.Log(notes.notedata);
+            }
+
+            else if (strValues[i].Equals("notes2"))
+            {
+                strValues[i + 1] = strValues[i + 1].Replace(" ", "");
+                notes2.notedata = strValues[i + 1];
+                Debug.Log(notes2.notedata);
+            }
+            else if (strValues[i].Equals("effects1"))
+            {
+                strValues[i + 1] = strValues[i + 1].Replace(" ", "");
+                effects.notedata = strValues[i + 1];
+                Debug.Log(effects.notedata);
             }
         }
         Debug.Log("Channels: " + channels);
@@ -128,23 +163,31 @@ public class MapReader : MonoBehaviour {
 
 		notes.currentIndex = (int)((MoveInward.timeToMove - (0.001f * offset)) / secondsPerSixteenth);
 		notes2.currentIndex = (int)((MoveInward.timeToMove - (0.001f * offset)) / secondsPerSixteenth);
-		/*
+        effects.currentIndex = (int)(((0.001f * offset)) / secondsPerSixteenth);
+        /*
 		StartCoroutine (StartAudio ());
 		*/
-		musicPlayer.PlayScheduled (AudioSettings.dspTime + 5.0f);
+        musicPlayer.PlayScheduled (AudioSettings.dspTime + 5.0f);
     }
     int val = 0;
 
     bool audioToggle = false;
     bool audioToggle2 = false;
     public static float spawnTimer = 0.0f;
-
+    void IncrementTime(ref int valueToIncrement)
+    {
+        /*
+        if (musicPlayer.pitch < 0.0f) valueToIncrement -= 1;
+        else valueToIncrement += 1;
+        */
+        ++valueToIncrement;
+    }
     void FixedUpdate () {
 		audiotimer = musicPlayer.time + (0.001f * offset);
 		//spawnTimer = audiotimer - MoveInward.timeToMove;
 		spawnTimer = audiotimer;
 
-        if (((audiotimer) % (secondsPerSixteenth * 4.0f)) <= 0.05f)
+        if (((audiotimer) % (secondsPerSixteenth * 2.0f)) <= 0.1f)
         {
 
             if (!audioToggle)
@@ -159,13 +202,14 @@ public class MapReader : MonoBehaviour {
         
 
 
-        if (((spawnTimer) % (secondsPerSixteenth * 1.0f)) <= 0.05f)
+        if (((spawnTimer) % (secondsPerSixteenth * 1.0f)) <= 0.1f)
         {
 
             if (!audioToggle2)
             {
 				SpawnMarker (notes);
 				SpawnMarker (notes2);
+                PerformEffect(effects);
                 audioToggle2 = !audioToggle2;
 
             }
@@ -179,14 +223,14 @@ public class MapReader : MonoBehaviour {
 		if (notesi.currentIndex >= notesi.notedata.Length) return;
         if(notesi.currentIndex < 0)
         {
-            ++notesi.currentIndex;
+            IncrementTime(ref notesi.currentIndex);
             return;
         }
 		int currentnote = notesi.notedata [notesi.currentIndex] - '0';
 
 		if (currentnote == 0 || currentnote > player.ChannelsInput.Length)
         {
-			++notesi.currentIndex;
+            IncrementTime(ref notesi.currentIndex);
             return;
         }
 
@@ -200,11 +244,59 @@ public class MapReader : MonoBehaviour {
             x.transform.localRotation = rot;
 			x.GetComponent<MoveInward> ().channel = currentnote - 1;
 			x.GetComponent<MoveInward> ().musicPlayer = this.musicPlayer;
-			x.GetComponent<MoveInward> ().startTime = spawnTimer;
-			//x.GetComponent<MoveInward> ().primaryColor = CorePrimaryColor;
-			x.GetComponent<MoveInward> ().player = this.player;
+            x.GetComponent<MoveInward>().startTime = spawnTimer;
+            //x.GetComponent<MoveInward> ().primaryColor = CorePrimaryColor;
+            x.GetComponent<MoveInward> ().player = this.player;
             x.GetComponent<MoveInward>().targetPosition = player.gameObject.transform.position + (rot * Vector3.right * player.radius * 0.6f);
-			++notesi.currentIndex;
+
+            IncrementTime(ref notesi.currentIndex);
+        }
+
+
+    }
+    void PerformEffect(EffectList notesi)
+    {
+
+        if (notesi.currentIndex >= notesi.notedata.Length) return;
+        if (notesi.currentIndex < 0)
+        {
+            ++notesi.currentIndex;
+            return;
+        }
+        char currentnote = notesi.notedata[notesi.currentIndex];
+
+        if (currentnote == '0')
+        {
+            ++notesi.currentIndex;
+            return;
+        }
+
+        else
+        {
+            //we do an effect bois
+            switch(currentnote)
+            {
+                case 'b':
+                    ChangeColor(Color.blue);
+                    break;
+                case 'r':
+                    ChangeColor(Color.red);
+                    break;
+                case 'g':
+                    ChangeColor(Color.green);
+                    break;
+                case '1':
+                    ChangeColor(startingColor);
+                    break;
+                case 'w':
+                    ChangeColor(Color.white);
+                    break;
+                default:
+                    break;
+
+            }
+            Debug.Log("bopo!");
+            ++notesi.currentIndex;
         }
 
 

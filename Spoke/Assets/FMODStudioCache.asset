@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 114260269182399234}
+  - {fileID: 114867183029589422}
+  EditorEvents:
+  - {fileID: 114792454071470616}
+  MasterBankRef: {fileID: 114867183029589422}
+  StringsBankRef: {fileID: 114260269182399234}
+  stringsBankWriteTime: 636458393973371937
+  cacheVersion: 2
+--- !u!114 &114260269182399234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Resources\spoke_bank\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636458393973371937
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 718
+  Exists: 1
+--- !u!114 &114397849789653168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Richard Ju\Documents\Spoke_Git\Spoke\Spoke\Assets\Resources\spoke_bank\Build\Desktop\MainTrack.bank
+  lastModified: 636458227975725872
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 974400
+  Exists: 1
+--- !u!114 &114652021450694998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Almonathan
+  guid: e3031892c9b71c41a0a30164a8a7b9fe
+  Banks:
+  - {fileID: 114397849789653168}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 10000
+  Length: 70478
+--- !u!114 &114792454071470616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Hitsound
+  guid: 7e41a520444c9745a8208a433e4d59ae
+  Banks:
+  - {fileID: 114867183029589422}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 950
+  Length: 448
+--- !u!114 &114867183029589422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Richard Ju\Documents\Spoke_Git\Spoke\Spoke\Assets\Resources\spoke_bank\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636458393973181390
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 19200
+  Exists: 1
