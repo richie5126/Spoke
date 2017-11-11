@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858e145cb11e3024e95792332da52c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  originalColor: {r: 0.36764705, g: 0.36764705, b: 0.36764705, a: 1}
   intensity: 1
 --- !u!1 &141930690
 GameObject:
@@ -437,7 +437,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -765823446
+  randomSeed: 1110714657
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5493,5 +5493,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858e145cb11e3024e95792332da52c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  originalColor: {r: 0.7205882, g: 0.7205882, b: 0.7205882, a: 1}
   intensity: 2
