@@ -1,15 +1,20 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Maps/MapReader.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SceneLoader.cs">
     <Files>
-      <File FileName="Assets/Maps/testmap.txt" Line="1" Column="72" />
-      <File FileName="Assets/Maps/MapReader.cs" Line="162" Column="66" />
-      <File FileName="Assets/MoveInward.cs" Line="35" Column="45" />
-      <File FileName="Assets/PlayerInput.cs" Line="13" Column="32" />
+      <File FileName="Assets/SpectrumFlicker.cs" Line="15" Column="42" />
+      <File FileName="Assets/Maps/testmap.txt" Line="1" Column="1" />
+      <File FileName="Assets/Maps/MapReader.cs" Line="66" Column="57" />
+      <File FileName="Assets/MoveInward.cs" Line="1" Column="1" />
+      <File FileName="Assets/PlayerInput.cs" Line="1" Column="1" />
       <File FileName="Assets/InvertMask.shader" Line="1" Column="1" />
-      <File FileName="Assets/Shaders/Gridbox.shader" Line="11" Column="36" />
+      <File FileName="Assets/Shaders/Gridbox.shader" Line="1" Column="1" />
       <File FileName="Assets/rotate.cs" Line="1" Column="1" />
       <File FileName="Assets/Maps/derezzed.txt" Line="1" Column="83" />
+      <File FileName="Assets/TitleButton.cs" Line="22" Column="55" />
+      <File FileName="Assets/ButtonManager.cs" Line="9" Column="1" />
+      <File FileName="Assets/SceneLoader.cs" Line="34" Column="1" />
+      <File FileName="Assets/UIFader.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

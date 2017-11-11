@@ -19,6 +19,7 @@ public class TitleButton : MonoBehaviour {
 	}
 	public void LerpMove()
 	{
+		i = MoveToPosition (origPosition - new Vector3(-4.0f, 0.0f, 0.0f), 10.0f);
 		StartCoroutine(i);
 
 	}
