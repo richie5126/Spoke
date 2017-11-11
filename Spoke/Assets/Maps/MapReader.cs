@@ -42,6 +42,8 @@ public class MapReader : MonoBehaviour {
     float secondsPerSixteenth = 0.0f;
     float audiotimer = 0.0f;
 
+    public Image clearedImage;
+
     Color startingColor;
 	Renderer[] primaryRenderers;
 	IEnumerator StartAudio()
@@ -57,6 +59,21 @@ public class MapReader : MonoBehaviour {
 		title.CrossFadeAlpha (0.0f, 1.0f, false);
 		yield return new WaitForSeconds (1.0f);
 	}
+    IEnumerator EndGame()
+    {
+        if (clearedImage != null)
+        {
+            clearedImage.gameObject.SetActive(true);
+            clearedImage.rectTransform.localPosition = new Vector3(-1000.0f, 0.0f);
+            while(clearedImage.transform.position.magnitude > 0.01f)
+            {
+                clearedImage.rectTransform.localPosition = Vector3.Lerp(clearedImage.rectTransform.localPosition, Vector3.zero, 10.0f * Time.deltaTime);
+                yield return new WaitForEndOfFrame();
+            }
+        }
+
+        yield return new WaitForEndOfFrame();
+    }
 	public void ChangeColor(Color c)
 	{
         CorePrimaryColor = c;
@@ -70,7 +87,7 @@ public class MapReader : MonoBehaviour {
         if (passiveParticles != null) passiveParticles.Emit(25);
 
     }
-    void Awake()
+    void Start()
     {
         startingColor = CorePrimaryColor;
 		primaryRenderers = FindObjectsOfType<Renderer> ();
@@ -80,6 +97,13 @@ public class MapReader : MonoBehaviour {
 		notes2 = new NoteList ();
         effects = new EffectList();
 
+        SceneLoader levelname = FindObjectOfType<SceneLoader>();
+        if (levelname != null)
+            textFile = Resources.Load(levelname.ResourceName) as TextAsset;
+        if(textFile == null)
+        {
+            Debug.Log("Resource not found...");
+        }
         byte[] bytedata = textFile.bytes;
         string text = System.Text.ASCIIEncoding.ASCII.GetString(bytedata);
 
@@ -184,7 +208,7 @@ public class MapReader : MonoBehaviour {
         if(musicPlayer.pitch > 0.0f)
         ++valueToIncrement;
     }
-    void FixedUpdate () {
+    void Update () {
 		audiotimer = musicPlayer.time + (0.001f * offset);
 		//spawnTimer = audiotimer - MoveInward.timeToMove;
 		spawnTimer = audiotimer;
@@ -217,6 +241,21 @@ public class MapReader : MonoBehaviour {
             }
         }
         else audioToggle2 = false;
+
+        if (musicPlayer.time >= musicPlayer.clip.length - Time.fixedDeltaTime)
+        {
+            Debug.Log("Music Ended!");
+            musicPlayer.Stop();
+            StartCoroutine(EndGame());
+
+            SceneLoader levelname = FindObjectOfType<SceneLoader>();
+            if (levelname != null)
+            {
+                Debug.Log("Loading the next level");
+                levelname.LoadLevel("Menu");
+            }
+            else Debug.Log("Couldn't find sceneloader");
+        }
     }
     
 	void SpawnMarker(NoteList notesi)

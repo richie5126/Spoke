@@ -20,7 +20,7 @@ public class MoveInward : MonoBehaviour
 	public AudioSource musicPlayer;
 	public PlayerInput player;
 
-	public Color primaryColor = Color.white;
+    public Color primaryColor = Color.white;
 	void Start ()
     {
 
@@ -40,7 +40,6 @@ public class MoveInward : MonoBehaviour
 		if (scoreManager == null)
 			scoreManager = FindObjectOfType<ScoreManager> ();
 		
-		double offset;
 		float t;
 
 
@@ -54,31 +53,33 @@ public class MoveInward : MonoBehaviour
 		if (Input.GetKeyDown (player.ChannelsInput [channel]) && t > 0.85f) {
 			++scoreManager.notesPlayed;
 			if (t < 0.90f) {
-				Debug.Log ("Good!");
 				scoreManager.noteAccuracy += 0.50f;
 				scoreManager.AddToScore (50);
+                scoreManager.CreateScoreMessage(1);
 			} else if (t < 0.95f) {
-				Debug.Log ("Great!");
 				scoreManager.noteAccuracy += 0.75f;
 				scoreManager.AddToScore (100);
-			} else if (t < 1.05f) {
-				Debug.Log ("Perfect!");
+                scoreManager.CreateScoreMessage(2);
+            } else if (t < 1.05f) {
 				scoreManager.noteAccuracy += 1.0f;
 				scoreManager.AddToScore (200);
-			} else if (t < 1.2f) {
+                scoreManager.CreateScoreMessage(3);
+            } else if (t < 1.2f) {
 				Debug.Log ("Almost...");
 				scoreManager.AddToScore (25);
 				scoreManager.noteAccuracy += 0.25f;
 				scoreManager.BreakCombo ();
-			}
+                scoreManager.CreateScoreMessage(1);
+            }
 			
 			Destroy (gameObject);
 		}
 		if (t > 1.3f) {
 			Debug.Log ("Miss...");
-			++scoreManager.notesPlayed;
+            ++scoreManager.notesPlayed;
 			scoreManager.BreakCombo ();
-			Destroy (gameObject);
+            scoreManager.CreateScoreMessage(0);
+            Destroy (gameObject);
 		}
     }
 }

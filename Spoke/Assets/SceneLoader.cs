@@ -5,29 +5,62 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class SceneLoader : MonoBehaviour {
 
-	// Use this for initialization
-	public string ResourceName = "ALMONATHAN";
-	public Sprite FadeOutImage;
-	public Image imageToFade;
-	void Start () {
+    // Use this for initialization
+    static SceneLoader mLoader;
+    public string ResourceName = "testmap";
+    public Canvas faderCanvas;
+
+    MaskableGraphic[] canvasElements;
+
+    public int fadeOutElement = 0;
+    public int loadingGraphic = 1;
+	void Awake () {
 		DontDestroyOnLoad(this);
-	}
-	public void LoadLevel()
+        
+        if (mLoader != null) Destroy(gameObject);
+        else mLoader = this;
+
+        if (faderCanvas != null)
+        {
+            faderCanvas.gameObject.SetActive(true);
+            canvasElements = faderCanvas.GetComponentsInChildren<MaskableGraphic>();
+        }
+
+        for(int i = 0; i < canvasElements.Length; ++i)
+        {
+            if (i == fadeOutElement)
+                canvasElements[i].CrossFadeAlpha(0.0f, 1.0f, false);
+
+            else canvasElements[i].canvasRenderer.SetAlpha(0.0f);
+        }
+
+    }
+    public void SetResourceName(string pName) { ResourceName = pName; }
+	public void LoadLevel(string pName = "Mainn")
 	{
-		StartCoroutine (LoadGame());
+		StartCoroutine (LoadGame(pName));
 	}
 	// Update is called once per frame
-	public IEnumerator LoadGame()
+	public IEnumerator LoadGame(string pName)
 	{
-		if (imageToFade != null) {
-			imageToFade.CrossFadeAlpha (1.0f, 1.0f, false);
-			Debug.Log ("Fading");
+        foreach (MaskableGraphic element in canvasElements)
+        {
+			element.CrossFadeAlpha (1.0f, 1.0f, false);
 		}
 		
-		yield return new WaitForSeconds (1.0f);
-		SceneManager.LoadSceneAsync ("Mainn");
-	}
+		yield return new WaitForSeconds (2.0f);
+		AsyncOperation tmp = SceneManager.LoadSceneAsync (pName);
+
+        while (!tmp.isDone)
+            yield return new WaitForEndOfFrame();
+        
+        foreach (MaskableGraphic element in canvasElements)
+        {
+            element.CrossFadeAlpha(0.0f, 1.0f, false);
+        }
+
+    }
 	void Update () {
-		
+        if (loadingGraphic < canvasElements.Length) canvasElements[loadingGraphic].transform.Rotate(0.0f, 0.0f, -135.0f * Time.deltaTime);
 	}
 }

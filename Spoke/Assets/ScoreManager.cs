@@ -19,7 +19,15 @@ public class ScoreManager : MonoBehaviour {
 	public Text scoreDisplay;
 	public Text accuracyDisplay;
 	public Text comboDisplay;
-	void Start () {
+
+
+    public GameObject goodSplash;
+    public GameObject greatSplash;
+    public GameObject perfectSplash;
+    public GameObject missSplash;
+
+    GameObject singleSplash;
+    void Start () {
 		scoredisplayed = score;
 	}
 	public void AddToScore(int points)
@@ -31,6 +39,41 @@ public class ScoreManager : MonoBehaviour {
 	{
 		combo = 1;
 	}
+    public void CreateScoreMessage(int scoretype)
+    {
+        switch(scoretype)
+        {
+            case 3:
+                if (perfectSplash != null)
+                {
+                    if (singleSplash != null) Destroy(singleSplash);
+                    singleSplash = GameObject.Instantiate(perfectSplash, Camera.main.transform);
+                }
+                break;
+            case 2:
+                if (greatSplash != null)
+                {
+                    if (singleSplash != null) Destroy(singleSplash);
+                    singleSplash = GameObject.Instantiate(greatSplash, Camera.main.transform);
+                }
+                break;
+            case 1:
+                if (goodSplash != null)
+                {
+                    if (singleSplash != null) Destroy(singleSplash);
+                    singleSplash = GameObject.Instantiate(goodSplash, Camera.main.transform);
+                }
+                break;
+            case 0:
+                if (perfectSplash != null)
+                {
+                    if (singleSplash != null) Destroy(singleSplash);
+                    singleSplash = GameObject.Instantiate(missSplash, Camera.main.transform);
+                }
+                break;
+
+        }
+    }
 	// Update is called once per frame
 	float timer = 0.0f;
 	void FixedUpdate () {
