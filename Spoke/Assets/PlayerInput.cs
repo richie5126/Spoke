@@ -17,6 +17,8 @@ public class PlayerInput : MonoBehaviour {
     private Vector3 originalScale;
     public float radius;
     private float radiusWorldWidth;
+
+    public KeyCode pauseButton;
 	void Start () {
         originalScale = transform.localScale;
         if (radiusMarker != null)
@@ -27,9 +29,52 @@ public class PlayerInput : MonoBehaviour {
         }
 
 	}
+    public Canvas PauseOverlay;
+    IEnumerator PauseCoroutine()
+    {
 
+        isPaused = !isPaused;
+        if (isPaused)
+        {
+            Music.Pause();
+            Time.timeScale = 0;
+        }
+        else
+        {
+            if (Music.AudioTimeSec != 0.0f)
+                Music.Resume();
+
+            Time.timeScale = 1;
+        }
+
+        if (PauseOverlay == null) yield return new WaitForEndOfFrame();
+        else
+        {
+            PauseOverlay.gameObject.SetActive(true);
+            MaskableGraphic[] pauseElements = PauseOverlay.GetComponentsInChildren<MaskableGraphic>();
+            if (isPaused)
+            {
+                foreach (MaskableGraphic item in pauseElements)
+                {
+                    item.canvasRenderer.SetAlpha(0.01f);
+                    item.CrossFadeAlpha(1.0f, 0.2f, true);
+                }
+                yield return new WaitForSecondsRealtime(0.2f);
+            }
+            else
+            {
+                foreach (MaskableGraphic item in pauseElements)
+                {
+                    item.CrossFadeAlpha(0.0f, 0.2f, true);
+                }
+                yield return new WaitForSecondsRealtime(0.2f);
+                PauseOverlay.gameObject.SetActive(false);
+            }
+        }
+    }
     // Update is called once per frame
     float[] spectrum = new float[256];
+    bool isPaused = false;
 	void Update ()
     {
         AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
@@ -53,5 +98,15 @@ public class PlayerInput : MonoBehaviour {
 
             }
         }
+        if (Input.GetKeyDown(pauseButton))
+        {
+            TogglePause();
+        }
 	}
+    private Coroutine coroutine;
+    public void TogglePause()
+    {
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = StartCoroutine(PauseCoroutine());
+    }
 }

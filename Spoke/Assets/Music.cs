@@ -604,7 +604,7 @@ public class Music : MonoBehaviour
 
         {
 
-            source.PlayScheduled(AudioSettings.dspTime + Time.deltaTime);
+            source.PlayScheduled(AudioSettings.dspTime + 5.0f);
 
         }
 

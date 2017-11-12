@@ -9,7 +9,7 @@ public class MapMusicReader : MonoBehaviour {
 
 	public TextAsset textFile;
 	public Color CorePrimaryColor = Color.cyan;
-
+    public int MachineSpecificGlobalOffset = 7700;
     int channels;
     float bpm;
     float offset;
@@ -76,8 +76,11 @@ public class MapMusicReader : MonoBehaviour {
 
         SceneLoader levelname = FindObjectOfType<SceneLoader>();
         if (levelname != null)
+        {
             textFile = Resources.Load(levelname.ResourceName) as TextAsset;
-        if(textFile == null)
+            musicPlayer.pitch = levelname.SongSpeed;
+        }
+            if (textFile == null)
         {
             Debug.Log("Resource not found...");
         }
@@ -99,10 +102,10 @@ public class MapMusicReader : MonoBehaviour {
                 Debug.Log(songData);
                 if (songData != null)
                 {
-                    /*
+                    
                     Debug.Log("Found the file!");
                     musicPlayer.clip = songData;
-                    */
+                    
                 }
                 else Debug.Log("Error: Could not find file requested!");
 
@@ -156,13 +159,14 @@ public class MapMusicReader : MonoBehaviour {
         Debug.Log("Channels: " + channels);
         Debug.Log("BPM: " + bpm);
         Debug.Log("Approach: " + approachrate);
+        if (levelname != null) approachrate += Mathf.Ceil(SceneLoader.maximumDifficultiesPossible / 2) - levelname.OverallDifficulty;
         MoveInward.timeToMove = approachrate * 0.2f;
         /*
 		*/
 
         Music.GetSection(0).Tempo = bpm;
         Music.GetSection(0).UnitPerBeat = 2;
-        Music.GetSection(0).StartTimeSamples = (int)((0.001f * offset) * 44100);
+        Music.GetSection(0).StartTimeSamples = (int)((0.001f * offset) * 44100) + MachineSpecificGlobalOffset;
 
 
         //musicPlayer.PlayScheduled (AudioSettings.dspTime + 5.0f);
@@ -174,7 +178,8 @@ public class MapMusicReader : MonoBehaviour {
         notes2.currentIndex = (int)((0.001f * offset) + MoveInward.timeToMove / secondsPerSixteenth);
         effects.currentIndex = (int)((0.001f * offset) / secondsPerSixteenth);
 
-        StartCoroutine(StartAudio());
+
+        Music.QuantizePlay(musicPlayer, 0);
     }
     int val = 0;
 
@@ -199,14 +204,10 @@ public class MapMusicReader : MonoBehaviour {
             SpawnMarker(notes2);
             PerformEffect(effects);
         }
-        if(Music.IsJustChangedBar())
-        {
-
-            debugMetronome.Play();
-        }
-        if (musicPlayer.time >= musicPlayer.clip.length - Time.fixedDeltaTime)
+        if (musicPlayer.time >= musicPlayer.clip.length - Time.fixedDeltaTime || notes.currentIndex >= notes.notedata.Length)
         {
             Debug.Log("Music Ended!");
+            notes.currentIndex = -100000;
             musicPlayer.Stop();
             StartCoroutine(EndGame());
 

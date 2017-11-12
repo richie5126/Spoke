@@ -6,12 +6,13 @@ using UnityEngine.EventSystems;
 public class LevelButton : MonoBehaviour, IPointerClickHandler{
 
     // Use this for initialization
+    public string levelToLoad = "Mainn";
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         SceneLoader tmp = FindObjectOfType<SceneLoader>();
         if(tmp != null)
         {
-            tmp.LoadLevel();
+            tmp.LoadLevel(levelToLoad);
         }
     }
 	void Start () {

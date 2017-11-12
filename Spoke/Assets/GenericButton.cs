@@ -12,7 +12,7 @@ public class GenericButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     bool isOver = false;
     void Start() { origScale = transform.localScale;  }
-    void Update() { if(!isOver) transform.localScale = Vector3.Lerp(transform.localScale, origScale, 10.0f * Time.deltaTime); }
+    void Update() { if(!isOver && Time.timeScale >= 1.0f) transform.localScale = Vector3.Lerp(transform.localScale, origScale, 10.0f * Time.deltaTime); }
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         isOver = true;

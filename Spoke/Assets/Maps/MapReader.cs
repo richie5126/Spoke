@@ -46,6 +46,11 @@ public class MapReader : MonoBehaviour {
 
     Color startingColor;
 	Renderer[] primaryRenderers;
+    IEnumerator PlayScheduledWithTimeScale(float timeToWait = 5.0f)
+    {
+        yield return new WaitForSeconds(timeToWait);
+        musicPlayer.Play();
+    }
 	IEnumerator StartAudio()
 	{
 
@@ -64,13 +69,23 @@ public class MapReader : MonoBehaviour {
         if (clearedImage != null)
         {
             clearedImage.gameObject.SetActive(true);
-            clearedImage.rectTransform.localPosition = new Vector3(-1000.0f, 0.0f);
-            while(clearedImage.transform.position.magnitude > 0.01f)
+            clearedImage.rectTransform.localPosition = new Vector3(0.0f, 1000.0f);
+            float timer = 0.0f;
+            while(clearedImage.transform.position.magnitude > 0.1f)
             {
+                timer += Time.deltaTime;
+                if (timer > 2.0f) break;
                 clearedImage.rectTransform.localPosition = Vector3.Lerp(clearedImage.rectTransform.localPosition, Vector3.zero, 10.0f * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
         }
+        SceneLoader levelname = FindObjectOfType<SceneLoader>();
+        if (levelname != null)
+        {
+            Debug.Log("Loading the next level");
+            levelname.LoadLevel("Menu");
+        }
+        else Debug.Log("Couldn't find sceneloader");
 
         yield return new WaitForEndOfFrame();
     }
@@ -196,7 +211,8 @@ public class MapReader : MonoBehaviour {
         /*
 		StartCoroutine (StartAudio ());
 		*/
-        musicPlayer.PlayScheduled (AudioSettings.dspTime + 5.0f);
+        //musicPlayer.PlayScheduled (AudioSettings.dspTime + 5.0f);
+        StartCoroutine(PlayScheduledWithTimeScale(5.0f));
     }
     int val = 0;
 
@@ -249,17 +265,11 @@ public class MapReader : MonoBehaviour {
 
         if (musicPlayer.time >= musicPlayer.clip.length - Time.fixedDeltaTime)
         {
-            Debug.Log("Music Ended!");
             musicPlayer.Stop();
+
+            Debug.Log("Music Ended!");
             StartCoroutine(EndGame());
 
-            SceneLoader levelname = FindObjectOfType<SceneLoader>();
-            if (levelname != null)
-            {
-                Debug.Log("Loading the next level");
-                levelname.LoadLevel("Menu");
-            }
-            else Debug.Log("Couldn't find sceneloader");
         }
     }
     

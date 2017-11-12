@@ -51,10 +51,12 @@ public class SceneLoader : MonoBehaviour {
 	}
 	// Update is called once per frame
 	public IEnumerator LoadGame(string pName)
-	{
+    {
+        Time.timeScale = 1;
+        canvasElements[fadeOutElement].raycastTarget = true;
         foreach (MaskableGraphic element in canvasElements)
         {
-			element.CrossFadeAlpha (1.0f, 1.0f, false);
+			element.CrossFadeAlpha (1.0f, 1.0f, true);
 		}
 		
 		yield return new WaitForSeconds (2.0f);
@@ -62,11 +64,21 @@ public class SceneLoader : MonoBehaviour {
 
         while (!tmp.isDone)
             yield return new WaitForEndOfFrame();
-        
+
+        canvasElements[fadeOutElement].raycastTarget = false;
         foreach (MaskableGraphic element in canvasElements)
         {
-            element.CrossFadeAlpha(0.0f, 1.0f, false);
+            element.CrossFadeAlpha(0.0f, 1.0f, true);
         }
+        ButtonManager tmp2 = FindObjectOfType<ButtonManager>();
+        TitleButton tmp3 = FindObjectOfType<TitleButton>();
+        if (tmp2 != null)
+        {
+            tmp2.SwapToMenuWithIndex(ButtonManager.activeMenu);
+            if (tmp3 != null)
+                tmp3.LerpMove();
+        }
+
 
     }
 	void Update () {

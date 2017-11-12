@@ -45,7 +45,8 @@ public class MoveInward : MonoBehaviour
 		t = (float)(AudioSettings.dspTime - startTime) / timeToMove;
 		else t = (float) (musicPlayer.time - startTime) / timeToMove;
 
-		//t = (float)(AudioSettings.dspTime - startTime) / timeToMove;
+        //t = (float)(AudioSettings.dspTime - startTime) / timeToMove;
+        //if (t >= 1) Destroy(gameObject);
         objToMove.transform.localPosition = origin + (t * (transform.InverseTransformPoint(targetPosition) - origin));
 
 		if (Input.GetKeyDown (player.ChannelsInput [channel]) && t > 0.85f) {
