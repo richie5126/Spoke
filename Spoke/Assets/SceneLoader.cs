@@ -8,6 +8,11 @@ public class SceneLoader : MonoBehaviour {
     // Use this for initialization
     static SceneLoader mLoader;
     public string ResourceName = "testmap";
+    public float SongSpeed = 1.0f;
+    public static int maximumDifficultiesPossible = 5;
+    public int OverallDifficulty = 3;
+
+    public float resultingMultiplier = 1.0f;
     public Canvas faderCanvas;
 
     MaskableGraphic[] canvasElements;
@@ -36,6 +41,10 @@ public class SceneLoader : MonoBehaviour {
 
     }
     public void SetResourceName(string pName) { ResourceName = pName; }
+
+    public void SetSongSpeed(float val) { SongSpeed = val;  }
+    public void SetDifficulty(int val) { OverallDifficulty = val;  }
+
 	public void LoadLevel(string pName = "Mainn")
 	{
 		StartCoroutine (LoadGame(pName));
@@ -61,6 +70,7 @@ public class SceneLoader : MonoBehaviour {
 
     }
 	void Update () {
+        resultingMultiplier = SongSpeed * (0.7f + ((0.1f) * OverallDifficulty));
         if (loadingGraphic < canvasElements.Length) canvasElements[loadingGraphic].transform.Rotate(0.0f, 0.0f, -135.0f * Time.deltaTime);
 	}
 }

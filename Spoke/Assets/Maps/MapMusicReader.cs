@@ -4,22 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
-public class NoteList
-{
-	public string notedata = "";
-	public int currentIndex = 0;
-	public NoteList ()
-	{
-	}
-}
-public class EffectList : NoteList
-{
-
-    public EffectList()
-    {
-    }
-}
-public class MapReader : MonoBehaviour {
+public class MapMusicReader : MonoBehaviour {
     // Use this for initialization
 
 	public TextAsset textFile;
@@ -46,19 +31,11 @@ public class MapReader : MonoBehaviour {
 
     Color startingColor;
 	Renderer[] primaryRenderers;
-	IEnumerator StartAudio()
-	{
-
-		//start the music!
-		musicPlayer.PlayScheduled(AudioSettings.dspTime + 7.0);
-
-
-		title.CrossFadeAlpha (1.0f, 1.0f, false);
-		yield return new WaitForSeconds (1.0f);
-		yield return new WaitForSeconds (5.0f);
-		title.CrossFadeAlpha (0.0f, 1.0f, false);
-		yield return new WaitForSeconds (1.0f);
-	}
+    IEnumerator StartAudio()
+    {
+        yield return new WaitForSeconds(5.0f);
+        Music.QuantizePlay(musicPlayer, 0);
+    }
     IEnumerator EndGame()
     {
         if (clearedImage != null)
@@ -99,10 +76,7 @@ public class MapReader : MonoBehaviour {
 
         SceneLoader levelname = FindObjectOfType<SceneLoader>();
         if (levelname != null)
-        {
             textFile = Resources.Load(levelname.ResourceName) as TextAsset;
-            musicPlayer.pitch = levelname.SongSpeed;
-        }
         if(textFile == null)
         {
             Debug.Log("Resource not found...");
@@ -125,8 +99,10 @@ public class MapReader : MonoBehaviour {
                 Debug.Log(songData);
                 if (songData != null)
                 {
+                    /*
                     Debug.Log("Found the file!");
                     musicPlayer.clip = songData;
+                    */
                 }
                 else Debug.Log("Error: Could not find file requested!");
 
@@ -180,23 +156,25 @@ public class MapReader : MonoBehaviour {
         Debug.Log("Channels: " + channels);
         Debug.Log("BPM: " + bpm);
         Debug.Log("Approach: " + approachrate);
-
-        if (levelname != null) approachrate += Mathf.Ceil(SceneLoader.maximumDifficultiesPossible / 2) - levelname.OverallDifficulty;
         MoveInward.timeToMove = approachrate * 0.2f;
-		//eight time
-        secondsPerSixteenth = 30.0f / bpm;
-
-
-		Debug.Log("Note total: " + notes.notedata.Length);
-		Debug.Log("Note2 total: " + notes2.notedata.Length);
-
-		notes.currentIndex = (int)((MoveInward.timeToMove - (0.001f * offset)) / secondsPerSixteenth);
-		notes2.currentIndex = (int)((MoveInward.timeToMove - (0.001f * offset)) / secondsPerSixteenth);
-        effects.currentIndex = (int)(((0.001f * offset)) / secondsPerSixteenth);
         /*
-		StartCoroutine (StartAudio ());
 		*/
-        musicPlayer.PlayScheduled (AudioSettings.dspTime + 5.0f);
+
+        Music.GetSection(0).Tempo = bpm;
+        Music.GetSection(0).UnitPerBeat = 2;
+        Music.GetSection(0).StartTimeSamples = (int)((0.001f * offset) * 44100);
+
+
+        //musicPlayer.PlayScheduled (AudioSettings.dspTime + 5.0f);
+
+
+        float secondsPerSixteenth = (60.0f / bpm) / (float)Music.GetSection(0).UnitPerBeat;
+
+        notes.currentIndex = (int)((0.001f * offset) + MoveInward.timeToMove / secondsPerSixteenth);
+        notes2.currentIndex = (int)((0.001f * offset) + MoveInward.timeToMove / secondsPerSixteenth);
+        effects.currentIndex = (int)((0.001f * offset) / secondsPerSixteenth);
+
+        StartCoroutine(StartAudio());
     }
     int val = 0;
 
@@ -214,39 +192,18 @@ public class MapReader : MonoBehaviour {
         ++valueToIncrement;
     }
     void Update () {
-		audiotimer = musicPlayer.time + (0.001f * offset);
-		//spawnTimer = audiotimer - MoveInward.timeToMove;
-		spawnTimer = audiotimer;
 
-        if (((audiotimer) % (secondsPerSixteenth * 2.0f)) <= 0.1f)
+        if(Music.IsJustChangedBeat())
+        {
+            SpawnMarker(notes);
+            SpawnMarker(notes2);
+            PerformEffect(effects);
+        }
+        if(Music.IsJustChangedBar())
         {
 
-            if (!audioToggle)
-			{
-                debugMetronome.Stop();
-                debugMetronome.Play();
-                audioToggle = !audioToggle;
-
-            }
+            debugMetronome.Play();
         }
-        else audioToggle = false;
-        
-
-
-        if (((spawnTimer) % (secondsPerSixteenth * 1.0f)) <= 0.1f)
-        {
-
-            if (!audioToggle2)
-            {
-				SpawnMarker (notes);
-				SpawnMarker (notes2);
-                PerformEffect(effects);
-                audioToggle2 = !audioToggle2;
-
-            }
-        }
-        else audioToggle2 = false;
-
         if (musicPlayer.time >= musicPlayer.clip.length - Time.fixedDeltaTime)
         {
             Debug.Log("Music Ended!");
@@ -290,7 +247,8 @@ public class MapReader : MonoBehaviour {
             x.transform.localRotation = rot;
 			x.GetComponent<MoveInward> ().channel = currentnote - 1;
 			x.GetComponent<MoveInward> ().musicPlayer = this.musicPlayer;
-            x.GetComponent<MoveInward>().startTime = spawnTimer;
+            x.GetComponent<MoveInward>().startTime = Music.AudioTimeSec;
+            Debug.Log(x.GetComponent<MoveInward>().startTime);
             //x.GetComponent<MoveInward> ().primaryColor = CorePrimaryColor;
             x.GetComponent<MoveInward> ().player = this.player;
             x.GetComponent<MoveInward>().targetPosition = player.gameObject.transform.position + (rot * Vector3.right * player.radius * 0.6f);

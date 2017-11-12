@@ -21,7 +21,12 @@ public class AudioStaticAccessor : MonoBehaviour {
 	void Start ()
     {
         slider = GetComponent<Slider>();
-        slider.value = PlayerPrefs.GetFloat(channelName);
+        if(mMixer != null)
+        mMixer.SetFloat(channelName, PlayerPrefs.GetFloat(channelName));
+
+
+        if (slider != null)
+            slider.value = PlayerPrefs.GetFloat(channelName);
     }
 	
 	// Update is called once per frame

@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour {
 	public int scoretracker = 0;
 	public int combo = 1;
 	int totalZeroes = 10;
+    float globalMultiplier = 1.0f;
 
 	public float notesPlayed;
 	public float noteAccuracy;
@@ -29,10 +30,13 @@ public class ScoreManager : MonoBehaviour {
     GameObject singleSplash;
     void Start () {
 		scoredisplayed = score;
+        SceneLoader tmp = FindObjectOfType<SceneLoader>();
+        if (tmp != null) globalMultiplier = tmp.resultingMultiplier;
+
 	}
 	public void AddToScore(int points)
 	{
-		score += points * combo;
+        score += (int)((points * combo) * globalMultiplier);
 		++combo;
 	}
 	public void BreakCombo()

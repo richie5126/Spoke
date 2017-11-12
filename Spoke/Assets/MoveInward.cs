@@ -28,8 +28,6 @@ public class MoveInward : MonoBehaviour
 
 		if (musicPlayer == null)
 			startTime = AudioSettings.dspTime;
-		else
-			startTime = (double) musicPlayer.time;
 		transform.GetChild(0).GetComponent<Renderer> ().material.SetColor ("_Color", primaryColor);
         origin = objToMove.transform.localPosition;
         //Destroy(gameObject, timeToMove * 1.4f);

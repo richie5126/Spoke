@@ -450,7 +450,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1057278200
+  randomSeed: -1453926643
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3668,7 +3668,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0ef99ef0007f89642b3d8b78eacd3b92, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -4126,6 +4126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1157071762}
   - component: {fileID: 1157071761}
+  - component: {fileID: 1157071764}
   - component: {fileID: 1157071763}
   m_Layer: 0
   m_Name: Parser
@@ -4145,7 +4146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cfac18392d0734dbfdcf2a7f101c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFile: {fileID: 4900000, guid: 84ea75e4f642b5044b5905b31270d625, type: 3}
+  textFile: {fileID: 4900000, guid: 130e209a64438084c8ba2673829dd8e3, type: 3}
   CorePrimaryColor: {r: 0.65517235, g: 0, b: 1, a: 1}
   musicPlayer: {fileID: 2087553430}
   player: {fileID: 581059157}
@@ -4248,6 +4249,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1157071764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1157071760}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d7d91fc5c1283468d96085d7f9f0f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textFile: {fileID: 4900000, guid: 130e209a64438084c8ba2673829dd8e3, type: 3}
+  CorePrimaryColor: {r: 0, g: 1, b: 1, a: 1}
+  musicPlayer: {fileID: 2087553430}
+  player: {fileID: 581059157}
+  targetObject: {fileID: 1146431111806686, guid: 44bd6f02a03480743bcf8ee49c871331,
+    type: 2}
+  passiveParticles: {fileID: 581059160}
+  debugMetronome: {fileID: 581059161}
+  title: {fileID: 1509015805}
+  clearedImage: {fileID: 1561805726}
 --- !u!1 &1166940165
 GameObject:
   m_ObjectHideFlags: 0
@@ -5432,6 +5454,7 @@ GameObject:
   - component: {fileID: 2087553430}
   - component: {fileID: 2087553431}
   - component: {fileID: 2087553432}
+  - component: {fileID: 2087553433}
   m_Layer: 0
   m_Name: SpectrumDrawer
   m_TagString: Untagged
@@ -5480,8 +5503,9 @@ AudioSource:
   m_GameObject: {fileID: 2087553427}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243402468145107658, guid: 06e1d31790505d344a2c54509b313b4b,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 0f6690713171c844bbea100f1bb8e284, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5677,3 +5701,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalColor: {r: 0.7205882, g: 0.7205882, b: 0.7205882, a: 1}
   intensity: 2
+--- !u!114 &2087553433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2087553427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8446db5722cc6ff4a93f653144c6142b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sections:
+  - Name: MainTrack
+    UnitPerBeat: 4
+    UnitPerBar: 16
+    Tempo: 150
+    StartBar: 0
+    StartTimeSamples: 0
+    LoopType: 1
+  EntryPointSample: 0
+  DebugText: {fileID: 0}
+  CreateSectionClips: 0
