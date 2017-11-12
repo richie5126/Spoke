@@ -22,7 +22,7 @@ public class PreviewParser : MonoBehaviour {
     TextAsset textFile;
     public void ParseFile(string MapName)
     {
-
+        notetotal = 0;
         textFile = Resources.Load(MapName) as TextAsset;
         if (textFile == null)
         {
