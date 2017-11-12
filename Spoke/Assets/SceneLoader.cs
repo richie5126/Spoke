@@ -19,25 +19,33 @@ public class SceneLoader : MonoBehaviour {
 
     public int fadeOutElement = 0;
     public int loadingGraphic = 1;
+    IEnumerator LoadResources()
+    {
+        ResourceRequest tmp = Resources.LoadAsync("");
+        if (faderCanvas != null)
+            faderCanvas.gameObject.SetActive(true);
+
+        while (!tmp.isDone)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        for (int i = 0; i < canvasElements.Length; ++i)
+        {
+                canvasElements[i].CrossFadeAlpha(0.0f, 1.0f, false);
+        }
+    }
 	void Awake () {
 		DontDestroyOnLoad(this);
         
         if (mLoader != null) Destroy(gameObject);
         else mLoader = this;
-
         if (faderCanvas != null)
         {
-            faderCanvas.gameObject.SetActive(true);
             canvasElements = faderCanvas.GetComponentsInChildren<MaskableGraphic>();
         }
+        StartCoroutine(LoadResources());
 
-        for(int i = 0; i < canvasElements.Length; ++i)
-        {
-            if (i == fadeOutElement)
-                canvasElements[i].CrossFadeAlpha(0.0f, 1.0f, false);
-
-            else canvasElements[i].canvasRenderer.SetAlpha(0.0f);
-        }
 
     }
     public void SetResourceName(string pName) { ResourceName = pName; }

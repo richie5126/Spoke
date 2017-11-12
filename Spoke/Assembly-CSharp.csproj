@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\alignX.cs" />
      <Compile Include="Assets\AudioFade.cs" />
      <Compile Include="Assets\AudioStaticAccessor.cs" />
      <Compile Include="Assets\Beat.cs" />
@@ -69,6 +70,7 @@
      <Compile Include="Assets\MoveInward.cs" />
      <Compile Include="Assets\Music.cs" />
      <Compile Include="Assets\PlayerInput.cs" />
+     <Compile Include="Assets\PreviewParser.cs" />
      <Compile Include="Assets\ReflectsMultiplier.cs" />
      <Compile Include="Assets\rotate.cs" />
      <Compile Include="Assets\SceneLoader.cs" />

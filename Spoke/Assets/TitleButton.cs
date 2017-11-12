@@ -23,6 +23,11 @@ public class TitleButton : MonoBehaviour {
 		StartCoroutine(i);
 
 	}
+    public void FlyOut()
+    {
+        i = MoveToPosition(origPosition - new Vector3(-4.0f, 15.0f, 0.0f), 10.0f);
+        StartCoroutine(i);
+    }
 	public void restorePosition()
 	{
 		i = MoveToPosition (origPosition, 10.0f);

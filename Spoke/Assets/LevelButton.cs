@@ -12,6 +12,7 @@ public class LevelButton : MonoBehaviour, IPointerClickHandler{
         SceneLoader tmp = FindObjectOfType<SceneLoader>();
         if(tmp != null)
         {
+            ButtonManager.activeMenu = 1;
             tmp.LoadLevel(levelToLoad);
         }
     }
