@@ -64,7 +64,6 @@ public class MoveInward : MonoBehaviour
 				scoreManager.AddToScore (200);
                 scoreManager.CreateScoreMessage(3);
             } else if (t < 1.2f) {
-				Debug.Log ("Almost...");
 				scoreManager.AddToScore (25);
 				scoreManager.noteAccuracy += 0.25f;
 				scoreManager.BreakCombo ();

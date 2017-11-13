@@ -7,6 +7,7 @@ public class SceneLoader : MonoBehaviour {
 
     // Use this for initialization
     static SceneLoader mLoader;
+    public string mainMenu = "Menu";
     public string ResourceName = "testmap";
     public float SongSpeed = 1.0f;
     public static int maximumDifficultiesPossible = 5;
@@ -23,30 +24,31 @@ public class SceneLoader : MonoBehaviour {
     {
         ResourceRequest tmp = Resources.LoadAsync("");
         if (faderCanvas != null)
+        {
+            canvasElements = faderCanvas.GetComponentsInChildren<MaskableGraphic>();
             faderCanvas.gameObject.SetActive(true);
+        }
 
         while (!tmp.isDone)
         {
             yield return new WaitForEndOfFrame();
         }
+        var tmp2 = SceneManager.LoadSceneAsync(mainMenu);
+        while(!tmp2.isDone)
+            yield return new WaitForEndOfFrame();
 
         for (int i = 0; i < canvasElements.Length; ++i)
         {
                 canvasElements[i].CrossFadeAlpha(0.0f, 1.0f, false);
         }
     }
-	void Awake () {
+	void OnEnable () {
 		DontDestroyOnLoad(this);
         
         if (mLoader != null) Destroy(gameObject);
         else mLoader = this;
-        if (faderCanvas != null)
-        {
-            canvasElements = faderCanvas.GetComponentsInChildren<MaskableGraphic>();
-        }
         StartCoroutine(LoadResources());
-
-
+        StartCoroutine(RotateTimeIndependent());
     }
     public void SetResourceName(string pName) { ResourceName = pName; }
 
@@ -89,8 +91,16 @@ public class SceneLoader : MonoBehaviour {
 
 
     }
+    public IEnumerator RotateTimeIndependent()
+    {
+        while(true)
+        {
+
+            if (loadingGraphic < canvasElements.Length) canvasElements[loadingGraphic].transform.Rotate(0.0f, 0.0f, -135.0f * Time.deltaTime);
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+    }
 	void Update () {
         resultingMultiplier = SongSpeed * (0.7f + ((0.1f) * OverallDifficulty));
-        if (loadingGraphic < canvasElements.Length) canvasElements[loadingGraphic].transform.Rotate(0.0f, 0.0f, -135.0f * Time.deltaTime);
 	}
 }

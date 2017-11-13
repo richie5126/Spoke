@@ -115,12 +115,13 @@ public class MapReader : MonoBehaviour {
         SceneLoader levelname = FindObjectOfType<SceneLoader>();
         if (levelname != null)
         {
-            textFile = Resources.Load(levelname.ResourceName) as TextAsset;
+            ButtonManager.MapDatabase.TryGetValue(levelname.ResourceName, out textFile);
             musicPlayer.pitch = levelname.SongSpeed;
         }
         if(textFile == null)
         {
             Debug.Log("Resource not found...");
+            return;
         }
         byte[] bytedata = textFile.bytes;
         string text = System.Text.ASCIIEncoding.ASCII.GetString(bytedata);
@@ -300,7 +301,7 @@ public class MapReader : MonoBehaviour {
             x.transform.localRotation = rot;
 			x.GetComponent<MoveInward> ().channel = currentnote - 1;
 			x.GetComponent<MoveInward> ().musicPlayer = this.musicPlayer;
-            x.GetComponent<MoveInward>().startTime = spawnTimer;
+            x.GetComponent<MoveInward>().startTime = spawnTimer - (spawnTimer % secondsPerSixteenth);
             //x.GetComponent<MoveInward> ().primaryColor = CorePrimaryColor;
             x.GetComponent<MoveInward> ().player = this.player;
             x.GetComponent<MoveInward>().targetPosition = player.gameObject.transform.position + (rot * Vector3.right * player.radius * 0.6f);

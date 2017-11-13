@@ -88,12 +88,12 @@
      <None Include="Assets\Beautify\Resources\Particles\ParticleBlendZBuffer.shader" />
      <None Include="Assets\Beautify\README.txt" />
      <None Include="Assets\Beautify\Resources\Textures\README Textures.txt" />
+     <None Include="Assets\Resources\Notemaps\Derezzed - Normal.txt" />
      <None Include="Assets\Beautify\Resources\Shaders\CopyDepth.shader" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifyEA.cginc" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Return\{7845f7eb-978b-42a3-86ea-7bec08b408c1}.xml" />
      <None Include="Assets\Resources\spoke_bank\Metadata\AudioFile\{befc9506-167a-4280-b02e-44e1f8ee2fa8}.xml" />
      <None Include="Assets\Resources\spoke_bank\Metadata\BankFolder\{6a90623f-d0a8-4b92-a009-99ade59665ee}.xml" />
-     <None Include="Assets\Resources\derezzed.txt" />
      <None Include="Assets\InvertMask.shader" />
      <None Include="Assets\Beautify\Resources\Shaders\CopyDepthBiased.shader" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Asset\{f4d6289b-c9b3-4b62-8a71-6a5f4fa03d99}.xml" />
@@ -106,8 +106,9 @@
      <None Include="Assets\Resources\spoke_bank\Metadata\ParameterPreset\{f7385797-df0a-4e5b-8e5f-04458e64f762}.xml" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Workspace.xml" />
      <None Include="Assets\Resources\spoke_bank\Metadata\EventFolder\{c5a8ab0e-9959-46ed-8fad-d3a273ff4202}.xml" />
-     <None Include="Assets\Resources\testmap.txt" />
+     <None Include="Assets\Resources\Notemaps\Future Son - Normal.txt" />
      <None Include="Assets\Resources\spoke_bank\Metadata\AudioFile\{7615c4aa-967e-4055-99c2-b53ce11fb991}.xml" />
+     <None Include="Assets\Resources\Notemaps\Future Son - Easy.txt" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Mixer.xml" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifySF.cginc" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Tags.xml" />
@@ -116,6 +117,7 @@
      <None Include="Assets\Resources\spoke_bank\Metadata\ParameterPresetFolder\{20a17724-cbf5-4ecc-9bdc-602002a68af1}.xml" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifyAdvancedParams.cginc" />
      <None Include="Assets\Resources\spoke_bank\Metadata\SnapshotGroup\{995236ce-e501-4946-b48d-d952bcbe36fb}.xml" />
+     <None Include="Assets\Resources\Notemaps\Future Son - Hard.txt" />
      <None Include="Assets\Resources\spoke_bank\Metadata\EffectPresetFolder\{8d391fcc-cee0-4ec2-8499-2fc9c46c4e73}.xml" />
      <None Include="Assets\Shaders\Gridbox.shader" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Master.xml" />

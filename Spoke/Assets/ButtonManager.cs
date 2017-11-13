@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour {
 
@@ -8,10 +9,48 @@ public class ButtonManager : MonoBehaviour {
     public GameObject[] MenuWindows;
     public static int activeMenu = 0;
 
+    public int levelSelectIndex = 1;
+    public GameObject ButtonPrefab;
     Vector3 originalPosition;
+
+    public bool GenerateButtonsFromResources = false;
+
+    public static Dictionary<string, TextAsset> MapDatabase;
+    public GameObject MapsViewport;
     private IEnumerator swap_routine;
 	void Start () {
         originalPosition = transform.position;
+        MapDatabase = new Dictionary<string, TextAsset>();
+
+        TextAsset[] tmp = Resources.LoadAll<TextAsset>("Notemaps");
+        float offsetHeight = 0.0f;
+        foreach (TextAsset t in tmp)
+        {
+            Debug.Log("Adding " + t.name + " to the database.");
+            MapDatabase.Add(t.name, t);
+
+            //do not activate unless you're a fag
+            if (GenerateButtonsFromResources)
+            {
+                if (MapsViewport != null)
+                {
+                    //instantiate inside the content window;
+                    MapsViewport.SetActive(true);
+                    var g = GameObject.Instantiate(ButtonPrefab, MapsViewport.transform);
+                    g.GetComponentInChildren<Text>().text = t.name;
+                    g.GetComponentInChildren<LevelNameButton>().resourceName = t.name;
+
+                    var lnb = g.GetComponentInChildren<LevelNameButton>();
+                    lnb.tb = FindObjectOfType<TitleButton>();
+                    lnb.pp = FindObjectOfType<PreviewParser>();
+                    lnb.bm = FindObjectOfType<ButtonManager>();
+                    if (lnb.tb != null) lnb.source = lnb.tb.gameObject.GetComponent<AudioSource>();
+                    lnb.af = GameObject.Find("SpectrumDrawer").GetComponent<AudioFade>();
+                    g.transform.localPosition += new Vector3(0.0f, offsetHeight);
+                    offsetHeight -= 40.0f;
+                }
+            }
+        }
 	}
     public void SwapToMenuWithIndex(int value)
     {

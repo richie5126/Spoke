@@ -23,7 +23,7 @@ public class PreviewParser : MonoBehaviour {
     public void ParseFile(string MapName)
     {
         notetotal = 0;
-        textFile = Resources.Load(MapName) as TextAsset;
+        ButtonManager.MapDatabase.TryGetValue(MapName, out textFile);
         if (textFile == null)
         {
             Debug.Log("Resource not found...");
