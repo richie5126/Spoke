@@ -93,6 +93,7 @@
      <None Include="Assets\Beautify\Resources\Shaders\BeautifyEA.cginc" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Return\{7845f7eb-978b-42a3-86ea-7bec08b408c1}.xml" />
      <None Include="Assets\Resources\spoke_bank\Metadata\AudioFile\{befc9506-167a-4280-b02e-44e1f8ee2fa8}.xml" />
+     <None Include="Assets\Resources\Notemaps\Derezzed - Hard.txt" />
      <None Include="Assets\Resources\spoke_bank\Metadata\BankFolder\{6a90623f-d0a8-4b92-a009-99ade59665ee}.xml" />
      <None Include="Assets\InvertMask.shader" />
      <None Include="Assets\Beautify\Resources\Shaders\CopyDepthBiased.shader" />
@@ -110,6 +111,7 @@
      <None Include="Assets\Resources\spoke_bank\Metadata\AudioFile\{7615c4aa-967e-4055-99c2-b53ce11fb991}.xml" />
      <None Include="Assets\Resources\Notemaps\Future Son - Easy.txt" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Mixer.xml" />
+     <None Include="Assets\Resources\Notemaps\Derezzed - Easy.txt" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifySF.cginc" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Tags.xml" />
      <None Include="Assets\Resources\spoke_bank\Metadata\Platform\{e76f4acd-69ae-4755-b9be-8e426445a2b9}.xml" />

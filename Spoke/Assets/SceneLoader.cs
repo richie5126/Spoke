@@ -95,7 +95,6 @@ public class SceneLoader : MonoBehaviour {
     {
         while(true)
         {
-
             if (loadingGraphic < canvasElements.Length) canvasElements[loadingGraphic].transform.Rotate(0.0f, 0.0f, -135.0f * Time.deltaTime);
             yield return new WaitForSecondsRealtime(0.01f);
         }

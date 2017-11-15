@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MoveInward : MonoBehaviour
 {
+    public NoteList noteGroup;
 
     Vector3 origin;
     public Vector3 targetPosition;
@@ -21,7 +22,8 @@ public class MoveInward : MonoBehaviour
 	public PlayerInput player;
 
     public Color primaryColor = Color.white;
-	void Start ()
+    public MoveInward nextNote = null, prevNote = null;
+    void Start ()
     {
 
 		//startTime = AudioSettings.dspTime;
@@ -34,7 +36,7 @@ public class MoveInward : MonoBehaviour
     }
 
     // Update is called once per frame
-	void Update () {
+    void Update () {
 		if (scoreManager == null)
 			scoreManager = FindObjectOfType<ScoreManager> ();
 		
@@ -49,7 +51,17 @@ public class MoveInward : MonoBehaviour
         //if (t >= 1) Destroy(gameObject);
         objToMove.transform.localPosition = origin + (t * (transform.InverseTransformPoint(targetPosition) - origin));
 
-		if (Input.GetKeyDown (player.ChannelsInput [channel]) && t > 0.85f) {
+
+
+        if (t > 1.0f)
+        {
+            prevNote = null;
+            if (nextNote != null) nextNote.prevNote = null;
+        }
+
+        if (!Input.anyKeyDown) noteGroup.KeySlotActive = false;
+
+        if (!noteGroup.KeySlotActive && Input.GetKeyDown (player.ChannelsInput [channel]) && t > 0.85f && prevNote == null) {
 			++scoreManager.notesPlayed;
 			if (t < 0.90f) {
 				scoreManager.noteAccuracy += 0.50f;
@@ -69,7 +81,9 @@ public class MoveInward : MonoBehaviour
 				scoreManager.BreakCombo ();
                 scoreManager.CreateScoreMessage(1);
             }
-			
+
+            if(nextNote != null) nextNote.prevNote = null;
+            noteGroup.KeySlotActive = true;
 			Destroy (gameObject);
 		}
 		if (t > 1.3f) {

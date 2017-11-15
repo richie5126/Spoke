@@ -6,6 +6,7 @@ using System.IO;
 
 public class NoteList
 {
+    public bool KeySlotActive = false;
 	public string notedata = "";
 	public int currentIndex = 0;
 	public NoteList ()
@@ -273,7 +274,10 @@ public class MapReader : MonoBehaviour {
 
         }
     }
-    
+
+    private MoveInward inwardMemory;
+
+    public static bool KeyDownChannelOne = false, KeyDownChannelTwo = false;
 	void SpawnMarker(NoteList notesi)
     {
 
@@ -305,7 +309,11 @@ public class MapReader : MonoBehaviour {
             //x.GetComponent<MoveInward> ().primaryColor = CorePrimaryColor;
             x.GetComponent<MoveInward> ().player = this.player;
             x.GetComponent<MoveInward>().targetPosition = player.gameObject.transform.position + (rot * Vector3.right * player.radius * 0.6f);
+            x.GetComponent<MoveInward>().noteGroup = notesi;
 
+            if (inwardMemory != null) inwardMemory.nextNote = x.GetComponent<MoveInward>();
+            x.GetComponent<MoveInward>().prevNote = inwardMemory;
+            inwardMemory = x.GetComponent<MoveInward>();
             IncrementTime(ref notesi.currentIndex);
         }
 

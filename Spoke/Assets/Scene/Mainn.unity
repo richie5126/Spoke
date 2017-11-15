@@ -1042,7 +1042,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1365395125
+  randomSeed: 774264445
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5068,7 +5068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cfac18392d0734dbfdcf2a7f101c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFile: {fileID: 4900000, guid: 130e209a64438084c8ba2673829dd8e3, type: 3}
+  textFile: {fileID: 4900000, guid: 2d45bf4d47a844b499b34dd2ffe126b2, type: 3}
   CorePrimaryColor: {r: 0.65517235, g: 0, b: 1, a: 1}
   musicPlayer: {fileID: 2087553430}
   player: {fileID: 581059157}
@@ -5851,6 +5851,7 @@ MonoBehaviour:
   perfectSplash: {fileID: 1610485667938702, guid: a74bd1034272dc84786090ba87ac25c2,
     type: 2}
   missSplash: {fileID: 1947403247710404, guid: 6b9e3b155c7b6424a932d41e4d4f04bd, type: 2}
+  activeNotes: []
 --- !u!114 &1569787497
 MonoBehaviour:
   m_ObjectHideFlags: 0

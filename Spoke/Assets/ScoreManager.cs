@@ -28,7 +28,11 @@ public class ScoreManager : MonoBehaviour {
     public GameObject missSplash;
 
     GameObject singleSplash;
+
+
+    public List<MoveInward> activeNotes;
     void Start () {
+        activeNotes = new List<MoveInward>();
 		scoredisplayed = score;
         SceneLoader tmp = FindObjectOfType<SceneLoader>();
         if (tmp != null) globalMultiplier = tmp.resultingMultiplier;
