@@ -5845,13 +5845,14 @@ MonoBehaviour:
   scoreDisplay: {fileID: 1558841020}
   accuracyDisplay: {fileID: 1462352873}
   comboDisplay: {fileID: 1340872946}
-  goodSplash: {fileID: 1379144559764642, guid: 7b173cf26d684b948ba344149f7b02db, type: 2}
+  goodSplash: {fileID: 1573695083233870, guid: c7e779353257dc54d9ceb157dac03b37, type: 2}
   greatSplash: {fileID: 1364306075586828, guid: 4abe6b46aa19bdb4fa87ddbfc85b31d9,
     type: 2}
   perfectSplash: {fileID: 1610485667938702, guid: a74bd1034272dc84786090ba87ac25c2,
     type: 2}
   missSplash: {fileID: 1947403247710404, guid: 6b9e3b155c7b6424a932d41e4d4f04bd, type: 2}
-  activeNotes: []
+  almostSplash: {fileID: 1895568454771394, guid: 34819ea5ff2b344468d74a42be656e8a,
+    type: 2}
 --- !u!114 &1569787497
 MonoBehaviour:
   m_ObjectHideFlags: 0

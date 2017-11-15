@@ -252,6 +252,7 @@ MonoBehaviour:
   greatSplash: {fileID: 0}
   perfectSplash: {fileID: 0}
   missSplash: {fileID: 0}
+  almostSplash: {fileID: 0}
 --- !u!114 &50587262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7407,7 +7408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.76, y: 11.04}
+  m_AnchoredPosition: {x: -1, y: 11.04}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180052859

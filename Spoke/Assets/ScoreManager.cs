@@ -26,13 +26,9 @@ public class ScoreManager : MonoBehaviour {
     public GameObject greatSplash;
     public GameObject perfectSplash;
     public GameObject missSplash;
-
+    public GameObject almostSplash;
     GameObject singleSplash;
-
-
-    public List<MoveInward> activeNotes;
     void Start () {
-        activeNotes = new List<MoveInward>();
 		scoredisplayed = score;
         SceneLoader tmp = FindObjectOfType<SceneLoader>();
         if (tmp != null) globalMultiplier = tmp.resultingMultiplier;
@@ -51,6 +47,13 @@ public class ScoreManager : MonoBehaviour {
     {
         switch(scoretype)
         {
+            case 4:
+                if (almostSplash != null)
+                {
+                    if (singleSplash != null) Destroy(singleSplash);
+                    singleSplash = GameObject.Instantiate(almostSplash, Camera.main.transform);
+                }
+                break;
             case 3:
                 if (perfectSplash != null)
                 {

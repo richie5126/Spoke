@@ -79,7 +79,7 @@ public class MoveInward : MonoBehaviour
 				scoreManager.AddToScore (25);
 				scoreManager.noteAccuracy += 0.25f;
 				scoreManager.BreakCombo ();
-                scoreManager.CreateScoreMessage(1);
+                scoreManager.CreateScoreMessage(4);
             }
 
             if(nextNote != null) nextNote.prevNote = null;
