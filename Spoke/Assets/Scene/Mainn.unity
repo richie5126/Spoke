@@ -899,7 +899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f0517cce2b3634dac949ab19901a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChannelsInput: 64000000770000006100000078000000
+  ChannelsInput: 64000000770000006100000073000000
   hitsounds:
   - {fileID: 0}
   - {fileID: 0}
@@ -1042,7 +1042,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 774264445
+  randomSeed: 988838976
   InitialModule:
     serializedVersion: 3
     enabled: 1

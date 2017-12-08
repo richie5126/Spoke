@@ -20,7 +20,15 @@ public class ScoreManager : MonoBehaviour {
 	public Text scoreDisplay;
 	public Text accuracyDisplay;
 	public Text comboDisplay;
-
+    
+    public static int greatCount = 0;
+    public static int perfectCount = 0;
+    public static int lateCount = 0;
+    public static int earlyCount = 0;
+    public static int missCount = 0;
+    public static int comboCount = 0;
+    public static int scoreValue = 0;
+    public static double accuracyValue;
 
     public GameObject goodSplash;
     public GameObject greatSplash;
@@ -29,6 +37,14 @@ public class ScoreManager : MonoBehaviour {
     public GameObject almostSplash;
     GameObject singleSplash;
     void Start () {
+        greatCount = 0;
+        perfectCount = 0;
+        lateCount = 0;
+        earlyCount = 0;
+        missCount = 0;
+        comboCount = 0;
+        accuracyValue = 0.0;
+
 		scoredisplayed = score;
         SceneLoader tmp = FindObjectOfType<SceneLoader>();
         if (tmp != null) globalMultiplier = tmp.resultingMultiplier;
@@ -50,6 +66,7 @@ public class ScoreManager : MonoBehaviour {
             case 4:
                 if (almostSplash != null)
                 {
+                    ++lateCount;
                     if (singleSplash != null) Destroy(singleSplash);
                     singleSplash = GameObject.Instantiate(almostSplash, Camera.main.transform);
                 }
@@ -57,6 +74,7 @@ public class ScoreManager : MonoBehaviour {
             case 3:
                 if (perfectSplash != null)
                 {
+                    ++perfectCount;
                     if (singleSplash != null) Destroy(singleSplash);
                     singleSplash = GameObject.Instantiate(perfectSplash, Camera.main.transform);
                 }
@@ -64,6 +82,7 @@ public class ScoreManager : MonoBehaviour {
             case 2:
                 if (greatSplash != null)
                 {
+                    ++greatCount;
                     if (singleSplash != null) Destroy(singleSplash);
                     singleSplash = GameObject.Instantiate(greatSplash, Camera.main.transform);
                 }
@@ -71,19 +90,22 @@ public class ScoreManager : MonoBehaviour {
             case 1:
                 if (goodSplash != null)
                 {
+                    ++earlyCount;
                     if (singleSplash != null) Destroy(singleSplash);
                     singleSplash = GameObject.Instantiate(goodSplash, Camera.main.transform);
                 }
                 break;
             case 0:
-                if (perfectSplash != null)
+                if (missSplash != null)
                 {
+                    ++missCount;
                     if (singleSplash != null) Destroy(singleSplash);
                     singleSplash = GameObject.Instantiate(missSplash, Camera.main.transform);
                 }
                 break;
 
         }
+
     }
 	// Update is called once per frame
 	float timer = 0.0f;
@@ -108,12 +130,16 @@ public class ScoreManager : MonoBehaviour {
 		if (comboDisplay != null) {
 			comboDisplay.text = "x" + combo;
 		}
-		/*
+        /*
 		timer += Time.fixedDeltaTime;
 		if (timer > 1.0f) {
 			score += 300;
 			timer = 0.0f;
 		}
 		*/
-	}
+
+        accuracyValue = accuracy;
+        scoreValue = score;
+        if (combo > comboCount) comboCount = combo;
+    }
 }

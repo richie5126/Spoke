@@ -84,7 +84,7 @@ public class MapReader : MonoBehaviour {
         if (levelname != null)
         {
             Debug.Log("Loading the next level");
-            levelname.LoadLevel("Menu");
+            levelname.LoadLevel("Results");
         }
         else Debug.Log("Couldn't find sceneloader");
 
